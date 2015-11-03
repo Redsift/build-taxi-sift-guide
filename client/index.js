@@ -9,7 +9,7 @@ include('redsift.js');
 // Function: loadView
 // Description: Invoked when a Sift has transitioned to a final size class
 // Parameters:
-// @value: { 
+// @value: {
 //          sizeClass: {
 //            previous: {width: 'none'|'compact'|'full', height: 'none'|'list'|'compact'|'full'},
 //            current:  {width: 'none'|'compact'|'full', height: 'none'|'list'|'compact'|'full'}
