@@ -6,7 +6,7 @@ Let us start with a short intro to what is a Sift. A Sift is an [isomorphic Java
 
 To achieve great results, the first thing we need is good data. That is why this guide at the beginning is data focused. The data processing engine of the Redsift platform is called [Dagger](https://docs.redsift.io/docs#dagger) and it follows the design of a Directed Acyclic Graph. Directed, because data flows from one or multiple inputs to one or multiple outputs. Acyclic, because we wanted to make life easy for us. Graph, because processing units are called `nodes` and we are connecting them with lines. 
 
-The engine is JSON first, configuration, inputs and outputs are all using this format. Each Sift has a **sift.json** file that takes care of all the configuration needed. One of the properties is named `dag` and that is how we configure the dagger to compute stuff for us, hence we refer to it as DAG. In the DAG we define the `inputs` and the `outputs` of our graph, the `nodes` that take care of the computation and their relationships through `stores`. Each node has an input and some outputs of its own. Data for a node's IO come from the `stores`, which are named places to read and write data once you are inside the dagger. e.g. We can say that a node _A_ is connected to node _B_, if _A_ writes to store _S_, and _B_ reads from it. A -> S -> B = A -> B 
+The engine is JSON first, configuration, inputs and outputs are all using this format. Each Sift has a **sift.json** file that takes care of all the configuration needed. One of the properties is named `dag` and that is how we configure the Dagger to compute stuff for us, hence we refer to it as DAG. In the DAG we define the `inputs` and the `outputs` of our graph, the `nodes` that take care of the computation and their relationships through `stores`. Each node has an input and some outputs of its own. Data for a node's IO come from the `stores`, which are named places to read and write data once you are inside the Dagger. e.g. We can say that a node _A_ is connected to node _B_, if _A_ writes to store _S_, and _B_ reads from it. A -> S -> B = A -> B 
 
 That's all great for the *backend*, but what is happening with the *frontend*? It follows an MVC like pattern, the only difference is that the Model part is being taken care for you. After finishing with all the data processing in the *backend*, the Redsift platform will handle delivering the data to a local storage medium (e.g. for browsers in IndexedDB). Then data can be introduced to your views by accessing the local storage and by implementing the callbacks provided by the Redsift platform, hooks for when the data is ready and when transitions will take place. Everything else can be a mix of Javascript and HTML which can be added to the _client_ directory of your sift.
 
@@ -324,7 +324,7 @@ ret.push({
 ```
 
 * We are addressing an extra case in our code, when we receive an input event without a value. 
-Usually, that's because an email was deleted and that triggered an event to the DAG to compute again. To simulate that during development we can delete one files inside the _messages_ directory. It can be found at:
+Usually, that happens when an email gets deleted and triggers an event for the DAG to compute again. To simulate that during development we can delete one of the files inside the _messages_ directory. It can be found at:
 &lt;siftDir&gt;/sdk_runs/&lt;latestCreatedFile&gt;/&lt;nameOfDagEmailInput&gt;/messages
 
 ### outputs
@@ -587,3 +587,5 @@ We added the last outputs we are going to need.
 
 **server/currency.js**
 
+
+DISCLAIMER: In this example, we use your email receipts from Uber, Hailo and Addison Lee. Redsift is not affiliated with any of these companies and they do not sponsor or endorse our materials. Product names, logos, brands, and other trademarks featured or referred to within Redsift's products and documentation are the property of their respective trademark holders.
