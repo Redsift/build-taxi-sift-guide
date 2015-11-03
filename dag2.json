@@ -1,0 +1,69 @@
+{
+  "inputs":{
+    "emails": {
+      "taxi": {
+        "filter": {
+          "conditions": [{
+            "from": {
+              "regexp": {
+                "flags": "i",
+                "pattern": "billing@hailocab\\.com"
+              }
+            }
+          },{
+            "subject": {
+              "regexp": {
+                "flags": "i",
+                "pattern": "^\\s*Addison Lee Booking"
+              }
+            }
+          }],
+          "operator": "OR"
+        }
+      }
+    }
+  },
+  "nodes": [{
+      "#": "node1",
+      "input": {
+        "bucket": "taxi"
+      },
+      "outputs": {
+        "messages": {}
+      }
+    },{
+      "#": "Messages mapper",
+      "implementation": {
+          "node": "server/map1.js"
+      },
+      "input": {
+          "bucket": "messages"
+      },
+      "outputs": {
+          "receipts": {}
+      }
+    },{
+      "#": "node2",
+      "input": {
+        "bucket":"receipts"
+      },
+      "outputs": {
+        "outReceipts":{}
+      }
+    }],
+  "stores": {
+    "messages": {
+      "key$schema": "string"
+    },
+    "receipts": {
+        "key$schema": "string/string"
+    }
+  },
+  "outputs":{
+    "exports":{
+      "outReceipts":{
+        "key$schema":"string/string"
+      }
+    }
+  }
+}

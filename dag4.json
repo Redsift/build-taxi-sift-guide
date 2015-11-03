@@ -1,0 +1,113 @@
+{
+  "inputs":{
+    "emails": {
+      "taxi": {
+        "filter": {
+          "conditions": [
+          {
+            "conditions": [{
+              "from": {
+                "regexp": {
+                  "flags": "i",
+                  "pattern": "billing@hailocab\\.com"
+                  }
+                }
+              },
+              {
+              "body": {
+                "regexp": {
+                  "flags": "i",
+                  "pattern": "^\\s*HAILO RECEIPT"
+                }
+              }
+            }],
+            "operator": "AND"
+        },
+        {
+          "from": {
+              "regexp": {
+                  "flags": "i",
+                  "pattern": "receipts\\..+@uber\\.com"
+              }
+          }
+        },
+        {
+          "subject": {
+              "regexp": {
+                  "flags": "i",
+                  "pattern": "^\\s*Addison Lee Booking"
+              }
+          }
+        }],
+        "inMailboxes": [
+          "INBOX"
+        ],
+        "operator": "OR"
+        }
+      }
+    }
+  },
+  "nodes": [{
+      "#": "node1",
+      "input": {
+        "bucket": "taxi"
+      },
+      "outputs": {
+        "messages": {}
+      }
+    },{
+      "#": "Messages mapper",
+      "implementation": {
+        "node": "server/map2.js"
+      },
+      "input": {
+        "bucket": "messages",
+        "select": "$hash",
+        "with": {
+          "bucket": "msgdates",
+          "select": "$hash"
+        }
+      },
+      "outputs": {
+        "msgdates": {},
+        "receipts": {}
+      }
+    },{
+      "#": "node2",
+      "input": {
+        "bucket":"receipts"
+      },
+      "outputs": {
+        "outReceipts":{}
+      }
+    },{
+      "#": "node3",
+      "input": {
+        "bucket":"msgdates"
+      },
+      "outputs": {
+        "outMsgdates":{}
+      }
+    }],
+  "stores": {
+    "messages": {
+      "key$schema": "string"
+    },
+    "receipts": {
+        "key$schema": "string/string"
+    },
+    "msgdates": {
+        "key$schema": "string"
+    }
+  },
+  "outputs":{
+    "exports":{
+      "outReceipts":{
+        "key$schema":"string/string"
+      },
+      "outMsgdates":{
+        "key$schema": "string"
+      }
+    }
+  }
+}

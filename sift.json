@@ -1,0 +1,19 @@
+{
+  "name": "sift-building-guide",
+  "display-name": "Sift Building Guide",
+  "description": "",
+  "author": "",
+  "version": "0.1.0",
+  "color": "#000000",
+  "client": {
+    "entry-point": "client/index.js",
+    "types": [
+        "summary"
+    ],
+    "minimum-size": {
+      "width": "compact",
+      "height": "compact"
+    }
+  },
+  "dag": { "$ref":"./dag1.json" }
+}

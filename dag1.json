@@ -1,0 +1,47 @@
+{
+  "inputs":{
+    "emails": {
+      "taxi": {
+        "filter": {
+          "conditions": [{
+            "from": {
+              "regexp": {
+                "flags": "i",
+                "pattern": "billing@hailocab\\.com"
+              }
+            }
+          }]
+        }
+      }
+    }
+  },
+  "nodes": [{
+    "#": "node1",
+    "input": {
+      "bucket": "taxi"
+    },
+    "outputs": {
+      "messages": {}
+    }
+  },{
+    "#": "node2",
+    "input": {
+      "bucket":"messages"
+    },
+    "outputs": {
+      "bla":{}
+    }
+  }],
+  "stores": {
+    "messages": {
+      "key$schema": "string"
+    }
+  },
+  "outputs":{
+    "exports":{
+      "bla":{
+        "key$schema":"string"
+      }
+    }
+  }
+}

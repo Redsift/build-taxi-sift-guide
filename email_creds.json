@@ -1,0 +1,7 @@
+{
+    "accountId": "<YOUR EMAIL>",
+    "auth": {
+        "password": "<YOUR PASSOWRD>",
+        "type": "plain"
+    }
+}
