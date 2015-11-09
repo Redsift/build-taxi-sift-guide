@@ -4,6 +4,8 @@ Please edit your `sift.json` file to look like this:
 
 `"dag": { "$ref":"./dag4.json" }`
 
+## How far can you nest?
+
 In this step we will augment the email filter of the previous steps with nested conditions.
 
 ### inputs
@@ -67,7 +69,8 @@ The new email filter has the following conditions:
 
 ## Any results?
 
-If your new filters matched more emails and your run again your DAG you should see more entries in all the relevant dbs in IndexedDB.
+
+If your new filters matched more emails and you run again your DAG you should see more entries in all the relevant dbs in IndexedDB.
 
 ## Full
 
