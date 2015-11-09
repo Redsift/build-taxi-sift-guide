@@ -16,6 +16,8 @@ Bellow we have the list of steps which you can follow to implement bit by bit th
 1. Simple DAG
 2. Mapping Emails
 3. Key Operations
+4. Nested Filters
+5. Multiple Nodes
 4. Nested filters
 
 
