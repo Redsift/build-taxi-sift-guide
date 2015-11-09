@@ -29,7 +29,7 @@
       "bucket":"messages"
     },
     "outputs": {
-      "bla":{}
+      "example1":{}
     }
   }],
   "stores": {
@@ -39,7 +39,7 @@
   },
   "outputs":{
     "exports":{
-      "bla":{
+      "example1":{
         "key$schema":"string"
       }
     }
