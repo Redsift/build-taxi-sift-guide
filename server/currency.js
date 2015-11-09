@@ -84,9 +84,9 @@ function convertReceipts(receipts, forex) {
         var convertedReceipt = { currency: userCurrency, total: convertedTotal, company: receipt.company };
         console.log('CURRENCY: emitting: key: ' + key + ' value: ' + convertedReceipt);
         // Stores the message in the _id.list store
-        ret.push({ name: 'idList', key: receipt.msgId, value: convertedReceipt });
+        ret.push({ name: 'idList', key: receipt.msgId, value: {'list': convertedReceipt, 'detail': {} }});
         // Stores the message in the _tid.list store
-        ret.push({ name: 'tidList', key: receipt.threadId, value: convertedReceipt });
+        ret.push({ name: 'tidList', key: receipt.threadId, value: {'list': convertedReceipt, 'detail': {} } });
         // Emits a converted receipt
         ret.push({ name: 'convertedreceipts', key: key, value: convertedReceipt });
     }

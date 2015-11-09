@@ -59,14 +59,17 @@ module.exports = function(got) {
               }
               var val = tot[2];
               
-              var company = msg.from.name;
-              if(company.toLowerCase().indexOf('hailo') !== -1) {
+              var company = msg.from.email.toLowerCase();
+              if(company.indexOf('hailo') !== -1) {
                   company = 'Hailo';
-              } else if (company.toLowerCase().indexOf('uber') !== -1) {
+              } else if (company.indexOf('uber') !== -1) {
                   company = 'Uber';
-              } else if (company.toLowerCase().indexOf('addison lee') !== -1) {
+              } else if (company.indexOf('addisonlee') !== -1) {
                   company = 'AddisonLee';
-              } 
+              } else {
+                throw new Error('Unknown email field:' + company);
+              }
+
               
               var date = new Date(msg.date);
               ret.push({

@@ -14,7 +14,7 @@
             "subject": {
               "regexp": {
                 "flags": "i",
-                "pattern": "^\\s*Addison Lee Booking"
+                "pattern": "\\.*Addison Lee Booking"
               }
             }
           }],
