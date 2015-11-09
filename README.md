@@ -13,12 +13,12 @@ That's all great for the *backend*, but what is happening with the *frontend*? I
 Bellow we have the list of steps which you can follow to implement bit by bit the Taxi Sift. Each step builds on top of the previous and at the same trying to introduce a new concept. Besides following them sequentially you can read them in an ad hoc fashion in order to focus on aspects that you are interested in. One file might have multiple versions, since we keep building on top of them and adding code. At the end of each step you can find the full list of files that you need for the specific step. We only insist on following the Hello Sift! example first that takes care of all the needed configuration. Happy Sifting! 
 
 0. Hello Sift!
-1. Simple DAG
-2. Mapping Emails
-3. Key Operations
-4. Nested Filters
-5. Multiple Nodes
-4. Nested filters
+1. [Simple DAG](./docs/Simple-DAG.md)
+2. [Mapping Emails](./docs/Mapping-Emails.md)
+3. [Key Operations](./docs/Key-Ops.md)
+4. [Nested Filters](./docs/Nested-Filters.md)
+5. [Multiple Nodes](./docs/Multiple-Nodes.md)
+6. [Aggregating Results](./docs/Aggregating-Results.md)
 
 
 # Hello Sift!
