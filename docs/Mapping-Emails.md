@@ -145,7 +145,7 @@ You can see now that your data have a completely different structure.
 Each row has a key that looks like the `key$schema` we defined(`string/string`) and its value has some real data with a `total`,`currency`,`msgId`, etc. fields.
 
 
-## Full 
+## Files
 
 **dag2.json**
 

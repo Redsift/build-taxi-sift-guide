@@ -72,6 +72,6 @@ The new email filter has the following conditions:
 
 If your new filters matched more emails and you run again your DAG you should see more entries in all the relevant dbs in IndexedDB.
 
-## Full
+## Files
 
 **dag4.json**

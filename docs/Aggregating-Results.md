@@ -71,7 +71,7 @@ We added the last outputs we are going to need.
 
 * year: The same process as with the month implementation, but all the operations are performed on a year basis.
 
-## Full
+## Files
 
 **dag6.json**
 

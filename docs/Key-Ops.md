@@ -152,7 +152,7 @@ In a new terminal do the following:
 
 We received some data in the `with` property of the argument for `map2.js`. That means that our join had a match, so the node was triggered for recomputation.
 
-## Full
+## Files
 
 **dag3.json**
 

@@ -100,7 +100,7 @@ Here we can see what the receipts look like before we try to aggregate them.
 Lastly, the `_id.list` and `_tid.list` dbs, follow the convention of having as a key the `messageId` of an email and the `threadId` an email belongs too respectively. The data stored in those dbs, will be imported by the framework if the Sift implements the `list` view.
 TODO example
 
-## Full
+## Files
 
 **dag5.json**
 
