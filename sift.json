@@ -6,7 +6,7 @@
   "version": "0.1.0",
   "color": "#000000",
   "client": {
-    "entry-point": "client/index.js",
+    "entry-point": "client/controller_cb1.js",
     "types": [
         "summary"
     ],
