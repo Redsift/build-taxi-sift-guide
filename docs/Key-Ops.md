@@ -11,7 +11,7 @@ In this example we are focusing on a node that performs a join operation over tw
 
 ### nodes
 
-We are extending the `Messages mapper` node from the previous example. It now performs a join over `messages` and `msgdates` by using the `$hash` anchor. The `select` fields are used effectively as the two sides of the relationship you would expect after the `ON` operator in a regular SQL JOIN operation. The value `$hash` in each of them means select the entire key from each side and try to match it. 
+We are extending the `Messages mapper` node from the previous example. It now performs a join over `messages` and `msgDataWithIds` by using the `$hash` anchor. The `select` fields are used effectively as the two sides of the relationship you would expect after the `ON` operator in a regular SQL JOIN operation. The value `$hash` in each of them means select the entire key from each side and try to match it. 
 
 When we have a match the `with` property in the arguments of the implementation function, will be populated.
 
@@ -41,12 +41,12 @@ The addition of nodes `node2` and `node3` is done for educational reasons, to ob
     "bucket": "messages",
     "select": "$hash",
     "with": {
-      "bucket": "msgdates",
+      "bucket": "msgDataWithIds",
       "select": "$hash"
     }
   },
   "outputs": {
-    "msgdates": {},
+    "msgDataWithIds": {},
     "receipts": {}
   }
 },{
@@ -60,10 +60,10 @@ The addition of nodes `node2` and `node3` is done for educational reasons, to ob
 },{
   "#": "node3",
   "input": {
-    "bucket": "msgdates"
+    "bucket": "msgDataWithIds"
   },
   "outputs": {
-    "outMsgdates":{}
+    "outMsgDataWithIds":{}
   }
 }]
 ```
@@ -77,8 +77,8 @@ The implementation is the same as before pretty much with two differences:
 ```
 ...
 ret.push({
-      name: 'msgdates', 
-      key:  d.key.split('/')[0], 
+      name: 'msgDataWithIds', 
+      key:  d.key, 
       value: {
         currency: currency, 
         company: company, 
@@ -102,7 +102,7 @@ A couple of dummy outputs just to be able to observe the data in our stores.
   "outReceipts":{
     "key$schema":"string/string"
   },
-  "outMsgdates":{
+  "outMsgDataWithIds":{
     "key$schema": "string"
   }
 }
@@ -111,7 +111,7 @@ A couple of dummy outputs just to be able to observe the data in our stores.
 
 ### stores
 
-We moved `receipts` from `outputs` to `stores` and added `messages` and `msgdates`.
+We moved `receipts` from the DAG `outputs` section to `stores` and added `messages` and `msgDataWithIds`.
 
 ```
 "stores": {
@@ -121,11 +121,35 @@ We moved `receipts` from `outputs` to `stores` and added `messages` and `msgdate
   "receipts": {
       "key$schema": "string/string"
   },
-  "msgdates": {
+  "msgDataWithIds": {
       "key$schema": "string"
   }
 }
 ```
+
+## Want to see some action?
+
+As always delete your local storage and run again your DAG.
+
+If you observe the dbs created in IndexedDB nothing has changed from a data perspective, just their names.
+
+The difference now is that we are ready to process deletions. Let's simulate that!
+
+In a new terminal do the following:
+
+1. `$ cd <PATH TO>/build-taxi-sift-guide/sdk_runs`
+
+2. `$ ls -td -- */ | head -n 1` this is just a fancy way to find the latest created folder.
+
+3. navigate inside the output of the previous command.
+
+4. `$ cd taxi/messages`
+
+5. now delete any file while keeping an eye at the output in the terminal you previously used to run your DAG. You should something like the following coming out.
+
+
+
+<img src='./screenshots/step3KeyOps.jpg'>
 
 
 ## Full

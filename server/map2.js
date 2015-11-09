@@ -84,8 +84,8 @@ module.exports = function(got) {
             });
 
             ret.push({
-                name: 'msgdates', 
-                key:  d.key.split('/')[0], 
+                name: 'msgDataWithIds', 
+                key:  d.key, 
                 value: {
                   currency: currency, 
                   company: company, 
