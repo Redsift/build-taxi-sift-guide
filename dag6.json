@@ -62,12 +62,12 @@
         "bucket": "messages",
         "select": "$hash",
         "with": {
-          "bucket": "msgdates",
+          "bucket": "msgDataWithIds",
           "select": "$hash"
         }
       },
       "outputs": {
-        "msgdates": {},
+        "msgDataWithIds": {},
         "receipts": {}
       }
     },{
@@ -121,7 +121,7 @@
     "receipts": {
       "key$schema": "string/string"
     },
-    "msgdates": {
+    "msgDataWithIds": {
       "key$schema": "string"
     },
     "convertedreceipts": {
