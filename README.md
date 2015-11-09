@@ -15,6 +15,7 @@ Bellow we have the list of steps which you can follow to implement bit by bit th
 1. Hello Sift!
 2. Simple DAG
 3. Mapping Emails
+4. Key Operations
 
 
 # Hello Sift!
