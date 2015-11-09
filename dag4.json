@@ -39,9 +39,7 @@
               }
           }
         }],
-        "inMailboxes": [
-          "INBOX"
-        ],
+        "inMailbox": "all",
         "operator": "OR"
         }
       }
@@ -64,12 +62,12 @@
         "bucket": "messages",
         "select": "$hash",
         "with": {
-          "bucket": "msgdates",
+          "bucket": "msgDataWithIds",
           "select": "$hash"
         }
       },
       "outputs": {
-        "msgdates": {},
+        "msgDataWithIds": {},
         "receipts": {}
       }
     },{
@@ -83,10 +81,10 @@
     },{
       "#": "node3",
       "input": {
-        "bucket":"msgdates"
+        "bucket":"msgDataWithIds"
       },
       "outputs": {
-        "outMsgdates":{}
+        "outMsgDataWithIds":{}
       }
     }],
   "stores": {
@@ -96,7 +94,7 @@
     "receipts": {
         "key$schema": "string/string"
     },
-    "msgdates": {
+    "msgDataWithIds": {
         "key$schema": "string"
     }
   },
@@ -105,7 +103,7 @@
       "outReceipts":{
         "key$schema":"string/string"
       },
-      "outMsgdates":{
+      "outMsgDataWithIds":{
         "key$schema": "string"
       }
     }
