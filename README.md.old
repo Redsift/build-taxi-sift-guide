@@ -1,0 +1,589 @@
+# The Taxi Sift example
+
+This guide walks you through building a Sift from the ground up. We are going to build a Sift that aggregates all the taxi receipts in your Inbox and performs calculations on top of that data set. The purpose of this guide is to familiarize you with the Redsift platform, give you a general overview of the framework and build something concrete at the end. The format of this guide tries to keep explanations brief to make easier the flow of the narration. You can always go deeper in the details in our [docs](https://docs.redsift.io).
+
+Let us start with a short intro to what is a Sift. A Sift is an [isomorphic Javascript application](http://isomorphic.net/javascript) that creates a micro-service on top of your email account(s). Isomorphic, since each Sift has two parts, a *backend* that usually does some data processing in a server and a *frontend* that presents the data in a client. The general flow of a Sift is to get some emails from your inbox, do some processing over that data (e.g. sum, average, map and reduce, etc.) and send it to the client to present them (e.g charts, tables, etc.).
+
+To achieve great results, the first thing we need is good data. That is why this guide at the beginning is data focused. The data processing engine of the Redsift platform is called [Dagger](https://docs.redsift.io/docs#dagger) and it follows the design of a Directed Acyclic Graph. Directed, because data flows from one or multiple inputs to one or multiple outputs. Acyclic, because we wanted to make life easy for us. Graph, because processing units are called `nodes` and we are connecting them with lines. 
+
+The engine is JSON first, configuration, inputs and outputs are all using this format. Each Sift has a **sift.json** file that takes care of all the configuration needed. One of the properties is named `dag` and that is how we configure the Dagger to compute stuff for us, hence we refer to it as DAG. In the DAG we define the `inputs` and the `outputs` of our graph, the `nodes` that take care of the computation and their relationships through `stores`. Each node has an input and some outputs of its own. Data for a node's IO come from the `stores`, which are named places to read and write data once you are inside the Dagger. e.g. We can say that a node _A_ is connected to node _B_, if _A_ writes to store _S_, and _B_ reads from it. A -> S -> B = A -> B 
+
+That's all great for the *backend*, but what is happening with the *frontend*? It follows an MVC like pattern, the only difference is that the Model part is being taken care for you. After finishing with all the data processing in the *backend*, the Redsift platform will handle delivering the data to a local storage medium (e.g. for browsers in IndexedDB). Then data can be introduced to your views by accessing the local storage and by implementing the callbacks provided by the Redsift platform, hooks for when the data is ready and when transitions will take place. Everything else can be a mix of Javascript and HTML which can be added to the _client_ directory of your sift.
+
+Before continuing with the steps of the guide you must read how to download the [SDK](https://docs.redsift.io/docs#installation-of-the-redsift-sdk) and how to [run](https://docs.redsift.io/docs#hello-sift) your first sift. In this repository we have created one for you and added all the required files for each step. Swapping files for each step is a matter of configuration in the **sift.json** file where all the configuration takes place. You can [reference other files](https://docs.redsift.io/docs#complex-sift-json-files) inside the configuration using the `$ref` property, but no need to be concerned with it for now.
+
+> Attention: always restart the SDK, when you make a change to your DAG!
+
+
+## 1. One input and simple pass through.
+
+
+The first thing we need to do is get some relevant emails from our account. Let's say we want all the receipts from the Hailo taxi company. 
+If you have ever used their services you will notice that all their receipts are sent from this email address: _billing@hailocab.com_ We will use that information to create a filter in the `inputs` section of our DAG.
+
+### inputs
+
+We are saying that one of our inputs is going to be from `emails` and we are giving it a name `taxi`. The `taxi` input is filtering data with only one condition: all the emails that come from the _billing@hailocab\\.com_ email address. We need to escape the dot `.`, since this is a regexp.
+
+```
+{
+  "from": {
+    "regexp": {
+      "flags": "i",
+      "pattern": "billing@hailocab\\.com"
+    }
+  }
+}
+```
+
+### node
+
+Nodes that don't have an implementation simply copy their input to their output. 
+
+**Node1** is copying data coming from the DAG's input to the `messages` store.
+
+**Node2** is copying data coming from the store `messages` to the DAG's output `default`.
+
+```
+[{
+  "#": "node1",
+  "input": {
+    "bucket": "taxi"
+  },
+  "outputs": {
+    "messages": {}
+  }
+},{
+  "#": "node2",
+  "input": {
+    "bucket": "messages"
+  },
+  "outputs": {
+    "default":{}
+  }
+}]
+```
+
+### stores
+
+We have only one store defined named `messages` with a `key$schmema` set to `string`.
+
+```
+{
+  "messages": {
+    "key$schema": "string"
+  }
+}
+```
+
+### outputs
+
+We have only have the `exports` type of output and it has only one output defined called `default`. An ObjectStore with the name `default` will be created in the appropriate database of IndexedDB.
+
+```
+{
+  "exports":{
+    "default":{
+      "key$schema":"string"
+    }
+  }
+}
+```
+### full files
+
+**dag1.json**
+
+
+## 2. Two inputs and map operation
+
+
+In this step we are going to look for emails from two providers, from Hailo or Addison Lee and we are going to add an intermediate node that is going to perform a _map_ operation over our data.
+
+### inputs
+
+This time we have two conditions that are connected with the `OR` operator. The one for Hailo is the same as before. The new one is for Addison Lee and tries to filter emails based on their subject using the following pattern `^\\s*Addison Lee Booking`.
+
+```
+"filter": {
+  "conditions": [{
+    "from": {
+      "regexp": {
+        "flags": "i",
+        "pattern": "billing@hailocab\\.com"
+      }
+    }
+  },{
+    "subject": {
+      "regexp": {
+        "flags": "i",
+        "pattern": "^\\s*Addison Lee Booking"
+      }
+    }
+  }],
+  "operator": "OR"
+}
+```
+
+### nodes
+
+We have a new node that is called `Messages mapper`. 
+
+It has an implementation which is located in the file `server/map1.js`.
+
+It's input is coming from the store `messages` and we are doing a key selection using the anchor `$hash`. Since we are not using the anchor for any other matching this has no effect and is equivalent to `*` or selecting everything.
+
+Lastly we added an additional `node2` at the end, to export outside of the DAG the data that reside in the `receipts` store and be able to visually inspect them.
+
+```
+[{
+  "#": "node1",
+  "input": {
+    "bucket": "taxi"
+  },
+  "outputs": {
+    "messages": {}
+  }
+},{
+  "#": "Messages mapper",
+  "implementation": {
+      "node": "server/map1.js"
+  },
+  "input": {
+      "bucket": "messages",
+      "select": "$hash"
+  },
+  "outputs": {
+      "receipts": {}
+  }
+},{
+  "#": "node2",
+  "input": {
+    "bucket": "receipts"
+  },
+  "outputs": {
+    "outReceipts":{}
+  }
+}]
+```
+
+### implementations
+
+This is the first time we supply an implementation for a node. What we are trying to achieve here is to look through the text of the email for a text extract that looks something like `Total: £34.50`. We use a regexp pattern to first find a match in the preview of the email and if that fails we continue for a full scan of the body of the email. When we find what we are looking for, all we are doing is creating a JSON object with a `name`, `key` and `value` and push it to the array `ret` we are going to return once we are done with all the emails.
+
+Below you can see an extract of the actual implementation trying to highlight the important bits. The full implementation can be found a bit lower. Hint: you will need to install the dependency `string` with npm before trying to execute it.
+
+```
+...
+function(got) {
+  const inData = got['in'];
+  var ret = [];
+  for(var d of inData.data) {
+    var msg = JSON.parse(d.value);
+
+    // Use a regexp to look for the word 'total' inside the preview of the email
+    var tot = TaxiRegExp.TOTAL.exec(msg.preview);
+    if(!tot) {
+      const msgBody = msg.textBody || msg.htmlBody;
+      const sBody = S(msgBody).stripTags().s.replace(HTMLRegExp.CLEANUP, '');
+      // Try once again using the mssage body in case info not in preview
+      tot = TaxiRegExp.TOTAL.exec(sBody);
+    }
+    
+    // If found total and managed to extract value from it
+    if(tot && tot.length === 3) {
+      var currency = 'USD';
+      var val = tot[2];
+      var company = msg.from.name.toLowerCase();
+      var date = new Date(msg.date);
+      
+      ...
+      // check for the correct currency label
+      ...
+      // check for the correct company
+      ...
+
+      ret.push({
+        name: 'receipts', 
+        key:  yyyymmdd(date, '-') + '/' + msg.id, 
+        value: {
+          currency: currency, 
+          total: val, 
+          company: company, 
+          msgId: msg.id, 
+          threadId: msg.threadId, 
+          date: date
+        }
+      });
+    }
+  }
+  return ret;
+}
+```
+
+### stores
+
+We have a new store named `receipts` which has a key schema `string/string`.
+
+```
+"stores": {
+  "messages": {
+    "key$schema": "string"
+  },
+  "receipts": {
+      "key$schema": "string/string"
+  }
+}
+```
+
+
+
+### full files
+
+**dag2.json**
+
+**server/map1.js**
+
+
+## 3. Node using `with`
+
+In this example we are focusing on a node that performs a join operation over two inputs sources using the `with` property and also outputs data to a `store` that is also using as an input. 
+
+
+### nodes
+
+We are extending the `Messages mapper` node from the previous example. It now performs a join over `messages` and `msgdates` by using the `$hash` anchor. The `select` fields are used effectively as the two sides of the relationship you would expect after the `ON` operator in a regular SQL JOIN operation. The value `$hash` in each of them means select all the key from each side and try to match it. When we have a match the `with` property in the argument of the implementation function, will be populated.
+
+Another new thing, in this node it the fact that it has two outputs. This is possible with the use of the `name` field in each of the JSON objects that our implementation emits.
+
+The last interesting bit here, is the cycle back of data from the node's output to its input. The trick here is that this will happen at a later stage. First the node will compute as if it had only one input and when data become available in the second input the node will be triggered again for a new computation.
+
+```
+[{
+  "#": "node1",
+  "input": {
+    "bucket": "taxi"
+  },
+  "outputs": {
+    "messages": {}
+  }
+},{
+  "#": "Messages mapper",
+  "implementation": {
+    "node": "server/map1.js"
+  },
+  "input": {
+    "bucket": "messages",
+    "select": "$hash",
+    "with": {
+      "bucket": "msgdates",
+      "select": "$hash"
+    }
+  },
+  "outputs": {
+    "msgdates": {},
+    "receipts": {}
+  }
+},{
+  "#": "node2",
+  "input": {
+    "bucket": "receipts"
+  },
+  "outputs": {
+    "outReceipts":{}
+  }
+},{
+  "#": "node3",
+  "input": {
+    "bucket": "msgdates"
+  },
+  "outputs": {
+    "outMsgdates":{}
+  }
+}]
+```
+
+### implementation 
+
+The implementation is the same as before pretty much with two differences:
+
+* we are now emitting events to a second store as per the definition of our node above
+
+```
+...
+ret.push({
+      name: 'msgdates', 
+      key:  d.key.split('/')[0], 
+      value: {
+        currency: currency, 
+        company: company, 
+        msgId: msg.id, 
+        date: date
+    }
+});
+...
+```
+
+* We are addressing an extra case in our code, when we receive an input event without a value. 
+Usually, that happens when an email gets deleted and triggers an event for the DAG to compute again. To simulate that during development we can delete one of the files inside the _messages_ directory. It can be found at:
+&lt;siftDir&gt;/sdk_runs/&lt;latestCreatedFile&gt;/&lt;nameOfDagEmailInput&gt;/messages
+
+### outputs
+
+We another dummy output just to export the `msgdates` store.
+
+```
+"outMsgdates":{
+  "key$schema": "string"
+}
+```
+
+
+### stores
+
+We have a new store called `msgdates`
+
+```
+"msgdates": {
+  "key$schema": "string"
+}
+```
+
+### full files
+
+**dag3.json**
+
+**server/map2.json**
+
+## 4. Nested filters
+
+In this step we will augment the email filter of the previous steps with nested conditions.
+
+### inputs
+
+The new email filter has the following conditions:
+
+* The first `conditions` array has three conditions with an `OR` operator.
+    - emails that are `from` ~= "receipts\\..+@uber\\.com"
+    - OR emails that have `subject` ~= "^\\s*Addison Lee Booking"
+    - OR a nested array of conditions 
+
+* The second `conditions` array has two conditions with an `AND` operator.
+    - emails that are `from` ~= "billing@hailocab\\.com"
+    - and email that have `body` ~= "^\\s*HAILO RECEIPT"
+
+* We are also looking for emails only in the `INBOX` mailbox.
+* Lastly, emails that have attachments
+
+```
+"filter": {
+    "conditions": [ // 1st
+    {
+      "conditions": [{ //2nd
+        "from": {
+          "regexp": {
+            "flags": "i",
+            "pattern": "billing@hailocab\\.com"
+            }
+          }
+        },
+        {
+        "body": {
+          "regexp": {
+            "flags": "i",
+            "pattern": "^\\s*HAILO RECEIPT"
+          }
+        }
+      }],
+      "operator": "AND"
+  },
+  {
+    "from": {
+        "regexp": {
+            "flags": "i",
+            "pattern": "receipts\\..+@uber\\.com"
+        }
+    }
+  },
+  {
+    "subject": {
+        "regexp": {
+            "flags": "i",
+            "pattern": "^\\s*Addison Lee Booking"
+        }
+    }
+  }],
+  "inMailboxes": [
+    "INBOX"
+  ],
+  "wants": [
+    "attachments"
+  ],
+  "operator": "OR"
+}
+```
+
+### full files
+
+**dag4.json**
+
+## 5. Currency Converter
+
+For this step we are adding  a new computational step in our DAG, which will convert all the receipts we have no matter the currency they are in, in the currency of our preference using the exchange rate of the date our trip took place.
+
+### nodes
+
+Our new node is named `Currency Converter` and we supply an implementation with the _currency.js_ file. It has multiple outputs both to `stores` and `exports`, but the most interesting part is the input section. It uses the `with` property as we have seen before, but this time we are performing an operation on the key of the `receipts` store. We are splitting it to two parts, an anchor `$day` which we want to keep and everything else that comes after it. The `$day` anchor from `receipts` is going to be used for the join with the `openexchangerates` store.
+
+```
+{
+  "#": "Currency converter",
+  "implementation": {
+    "node": "server/currency.js"
+  },
+  "input": {
+    "bucket": "receipts",
+    "select": "$day/*",
+    "with": {
+      "bucket": "openexchangerates",
+      "select": "$day"
+    }
+  },
+  "outputs": {
+    "convertedreceipts": {},
+    "openexchangerates": {},
+    "idList": {},
+    "tidList": {}
+  }
+}
+```
+
+### stores
+
+We added the new stores that we need.
+
+```
+"stores": {
+  ...,
+  "convertedreceipts": {
+    "key$schema": "string/string/string"
+  },
+  "openexchangerates": {
+    "key$schema": "string"
+  }
+}
+```
+
+### outputs
+
+After adding the `out*` exports just so we can export the new stores we created, comes the interesting part of the `idList` and `tidList` exports which have an `import` field. 
+The convention here is that names that start with an underscore `_` are restricted and are meant only for system usage. With that said if we `import` a system bucket ( referring to an ObjectStore in indexedDB ) and follow the key convention we can write some information that can be used later in the Chrome extension when we want to do lookups on a per email or thread id, hence the names `_id.list` and `_tid.list` respectively.
+
+```
+"outputs":{
+  "exports":{
+    "idList": {
+      "import": "_id.list"
+    },
+    "tidList": {
+      "import": "_tid.list"
+    },
+    "outConvertedreceipts":{
+      "key$schema": "string/string/string"
+    },
+    "outOpenexchangerates":{
+      "key$schema": "string"
+    }
+  }
+}
+```
+
+### implementation
+
+The implementation that we provided for the `Currency converter` node might seem lengthier than the previous one but it's quite simple. We perform a request to the openexchangerates API and the result of that request we put in the `openexchangerates` store so we can use it later to avoid constant requests to the API.
+
+> Note: You will need to head to [openexchangerates](http://openexchangerates.org) to get your own personal key for this to work. It's simple and free.
+
+
+Next we convert the receipts in different currencies with the help of the base rate that we got from the exchange service. The converted receipt now we emit it to the `convertedReceipt` store and to the two exports `idList` and `tidList`, one with the `emailId` key and the other with the `threadId` key.
+
+> Note: You will need to install two more dependencies using npm for the implementation to work, `request-promise` and `money`.
+
+### full files
+
+**dag5.json**
+
+**server/currency.js**
+
+## 6. Month and Year Aggregation
+
+This is the last step of our computational journey. After we mapped and generated all our receipts and converted them to the correct currency, now it's time to aggregate them to meaningful groups. We are going to perform two aggregations, one on a monthly and one on a yearly basis. That's why we are adding two new nodes to our DAG called the `Month reducer` and `Year reducer`.
+
+## nodes
+
+We added two aggregation nodes, each one with it's own implementation. The interesting part here is that although they are both taking data from the `convertedreceipts` store they are performing a different key operations. The data they get back are selected and grouped by the selected key.
+For the key of every receipt inside `convertedreceipts` which has the following structure:
+`YYYYMM/YYYY/emailID` e.g. `201508/2015/zOhSvJ8QSWbu3irGtywQJqjrioJ6Bqo5tr8ClYk6Z6-mqjEQ`
+We perform the following key operations:
+
+* month reducer selection: /\*/\* = YYYYMM (we select and group by the first bit and we don't care for the rest)
+* year reducer selection: \*//\* = YYYY (we select and group by the middle bit and don't care for the bits before and after)
+
+```
+...,
+{
+  "#": "Month reducer",
+  "implementation": {
+    "node": "server/month.js"
+  },
+  "input": {
+    "bucket": "convertedreceipts",
+    "select": "/*/*"
+  },
+  "outputs": {
+    "month": {}
+  }
+  },{
+  "#": "Year reducer",
+  "implementation": {
+    "node": "server/year.js"
+  },
+  "input": {
+    "bucket": "convertedreceipts",
+    "select": "*//*"
+  },
+  "outputs": {
+    "year": {}
+  }
+}
+```
+
+### outputs
+
+We added the last outputs we are going to need.
+
+```
+"outputs":{
+    "exports":{
+      ...,
+      "month": {
+        "key$schema": "string"
+      },
+      "year": {
+        "key$schema": "string"
+      }
+    }
+  }
+```
+
+### implementations
+
+* month: For each batch of grouped data, on a month basis, we receive we sum up all the receipts for each of the company and emit to the `month` store the total of all the companies for each month.
+
+* year: The same process as with the month implementation, but all the operations are performed on a year basis.
+
+### full files
+
+**dag6.json**
+
+**server/currency.js**
+
