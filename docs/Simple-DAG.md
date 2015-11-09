@@ -97,6 +97,10 @@ We want to export the data from the DAG, so we defined an `exports` type of outp
 ```
 ## Did we get any data?
 
+In a new terminal run:
+
+`$ redsift run-dag <PATH TO>/build-taxi-sift-guide/sift.json`
+
 In your Chrome browser: 
 
 Go to View > Developer > Javascript Console

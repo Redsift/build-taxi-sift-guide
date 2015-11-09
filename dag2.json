@@ -24,44 +24,21 @@
     }
   },
   "nodes": [{
-      "#": "node1",
-      "input": {
-        "bucket": "taxi"
-      },
-      "outputs": {
-        "messages": {}
-      }
-    },{
       "#": "Messages mapper",
       "implementation": {
           "node": "server/map1.js"
       },
       "input": {
-          "bucket": "messages"
+          "bucket": "taxi"
       },
       "outputs": {
           "receipts": {}
       }
-    },{
-      "#": "node2",
-      "input": {
-        "bucket":"receipts"
-      },
-      "outputs": {
-        "outReceipts":{}
-      }
     }],
-  "stores": {
-    "messages": {
-      "key$schema": "string"
-    },
-    "receipts": {
-        "key$schema": "string/string"
-    }
-  },
+  "stores": {},
   "outputs":{
     "exports":{
-      "outReceipts":{
+      "receipts":{
         "key$schema":"string/string"
       }
     }
