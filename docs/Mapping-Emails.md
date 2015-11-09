@@ -116,6 +116,18 @@ function(got) {
 }
 ```
 
+### outputs
+
+We made `receipts` a DAG `output` for now since there is no other node using it, but we are going to use it as a `store` later on.
+
+```
+"exports":{
+  "receipts":{
+    "key$schema":"string/string"
+  }
+}
+```
+
 ## What does it look like now?
 
 Since we changed our DAG quite a bit we need to delete our local storage first. Press the big black button `DELETE DBS`.
