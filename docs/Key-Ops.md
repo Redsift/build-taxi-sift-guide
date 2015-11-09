@@ -148,9 +148,9 @@ In a new terminal do the following:
 5. now delete any file while keeping an eye at the output in the terminal you previously used to run your DAG. You should something like the following coming out.
 
 
-
 <img src='./screenshots/step3KeyOps.jpg'>
 
+We received some data in the `with` property of the argument for `map2.js`. That means that our join had a match, so the node was triggered for recomputation.
 
 ## Full
 
