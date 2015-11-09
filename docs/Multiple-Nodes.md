@@ -85,6 +85,21 @@ Next we convert the receipts in different currencies with the help of the base r
 
 > Note: You will need to install two more dependencies using `npm` for the implementation to work, `request-promise` and `money`.
 
+## State of local storage
+
+If you look inside IndexedDB this time you should be able to find four databases: `_id.list`, `_tid.list`, `outConvertedreceipts` and `outOpenexchangerates`.
+
+<img src='./screenshots/step5OER.jpg'>
+The `openexchangerates` is used as a cache inside the DAG, so we avoid unnecessary requests to the external API. So the `outOpenexchangerates` has the responses we got from the API for each day.
+
+
+<img src='./screenshots/step5Receipts.jpg'>
+Here we can see what the receipts look like before we try to aggregate them.
+
+
+Lastly, the `_id.list` and `_tid.list` dbs, follow the convention of having as a key the `messageId` of an email and the `threadId` an email belongs too respectively. The data stored in those dbs, will be imported by the framework if the Sift implements the `list` view.
+TODO example
+
 ## Full
 
 **dag5.json**
