@@ -26,7 +26,7 @@ This time we have two conditions that are connected with the `OR` operator. The 
     "subject": {
       "regexp": {
         "flags": "i",
-        "pattern": "^\\s*Addison Lee Booking"
+        "pattern": "\\s*Addison Lee Booking"
       }
     }
   }],

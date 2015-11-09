@@ -26,25 +26,25 @@ The new email filter has the following conditions:
 
 ```
 "filter": {
-    "conditions": [ // 1st
-    {
-      "conditions": [{ //2nd
-        "from": {
-          "regexp": {
-            "flags": "i",
-            "pattern": "billing@hailocab\\.com"
-            }
-          }
-        },
-        {
-        "body": {
-          "regexp": {
-            "flags": "i",
-            "pattern": "^\\s*HAILO RECEIPT"
+  "conditions": [ // 1st 
+  {
+    "conditions": [{ // 2nd 
+      "from": {
+        "regexp": {
+          "flags": "i",
+          "pattern": "billing@hailocab\\.com"
           }
         }
-      }],
-      "operator": "AND"
+      },
+      {
+      "subject": {
+        "regexp": {
+          "flags": "i",
+          "pattern": "\\.*HAILO RECEIPT"
+        }
+      }
+    }],
+    "operator": "AND"
   },
   {
     "from": {
@@ -58,7 +58,7 @@ The new email filter has the following conditions:
     "subject": {
         "regexp": {
             "flags": "i",
-            "pattern": "^\\s*Addison Lee Booking"
+            "pattern": "\\.*Addison Lee Booking"
         }
     }
   }],
