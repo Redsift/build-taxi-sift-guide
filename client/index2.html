@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%">
+
+<head>
+    <!-- Basic Page Needs –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Taxi Sift</title>
+    <meta name="description" content="An example of a taxi receipt aggregator.">
+    <meta name="author" content="Redsift Limited">
+    <!-- Mobile Specific Metas –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=320, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <!-- CSS –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body id="home" style="height:100%">
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <div class="chart" id="taxiChartContainer"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Framework required library. Do not remove! -->
+    <script src="sift/js/redsift_cb.js"></script>
+
+    <!-- Extra libraries -->
+    <script src="libs/moment.min.js"></script>
+    <script src="libs/d3.v3.min.js"></script>
+    <script src="libs/dimple.v2.1.6.min.js"></script>
+
+    <!-- Callback implementation file -->
+    <script src="view_cb2.js"></script>
+</body>
+
+</html>
