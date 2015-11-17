@@ -9,13 +9,6 @@ var _chart = null;
 /**
  * View callbacks
  */
-//Sets the custom font to match the application.
-Sift.View.customFont = function (value) {
-	console.log('willPresentView: ', value);
-	// Remove if you want to control the fonts you use
-	d3.select('body').style('font-family', value.fontFamily);
-};
-
 // Called by the framework when client/index.js calls the resolve function
 Sift.View.presentView = function (value) {
   console.log('presentView: ', value);

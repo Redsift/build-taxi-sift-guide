@@ -14,7 +14,7 @@ Sift.Controller.loadView = function (value, resolve, reject) {
     loadTextSummaryView(resolve, reject);
   }
   else {
-    ret.html = 'client/index2.html';
+    ret.html = 'frontend/view2.html';
     ret.data = {};
     ret.data.sizeClass = value.sizeClass.current;
     if (height === 'compact') {
@@ -125,7 +125,7 @@ function loadCompactSummaryView(sizeClass, resolve, reject) {
     }).then(function (results) {
       var monthMap = createMonthMap(cKeys, results);
       var chart = createChart(cKeys, monthMap);
-      resolve({html: 'client/index2.html', label: 'Taxi Sift', data: {sizeClass: sizeClass, chart: chart}});
+      resolve({html: 'frontend/view2.html', label: 'Taxi Sift', data: {sizeClass: sizeClass, chart: chart}});
     }, function (error) {
       console.error('sift-taxi: loadCompactSummaryView: storage get failed: ', error);
       reject(error);

@@ -5,8 +5,7 @@
   "author": "",
   "version": "0.1.0",
   "color": "#000000",
-  "client": {
-    "entry-point": "client/controller_cb1.js",
+  "controller": {
     "types": [
         "summary"
     ],
