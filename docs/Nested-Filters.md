@@ -14,12 +14,12 @@ The new email filter has the following conditions:
 
 * The first `conditions` array has three conditions with an `OR` operator.
     - emails that are `from` ~= "receipts\\..+@uber\\.com"
-    - OR emails that have `subject` ~= "^\\s*Addison Lee Booking"
+    - OR emails that have `subject` ~= ".*Addison Lee Booking"
     - OR a nested array of conditions 
 
 * The second `conditions` array has two conditions with an `AND` operator.
     - emails that are `from` ~= "billing@hailocab\\.com"
-    - and email that have `body` ~= "^\\s*HAILO RECEIPT"
+    - and email that have `body` ~= ".*HAILO RECEIPT"
 
 * We are also looking for emails from `all` the mailboxes.
 
@@ -40,7 +40,7 @@ The new email filter has the following conditions:
       "subject": {
         "regexp": {
           "flags": "i",
-          "pattern": "\\.*HAILO RECEIPT"
+          "pattern": ".*HAILO RECEIPT"
         }
       }
     }],
@@ -58,7 +58,7 @@ The new email filter has the following conditions:
     "subject": {
         "regexp": {
             "flags": "i",
-            "pattern": "\\.*Addison Lee Booking"
+            "pattern": ".*Addison Lee Booking"
         }
     }
   }],

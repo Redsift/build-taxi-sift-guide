@@ -17,7 +17,7 @@
               "subject": {
                 "regexp": {
                   "flags": "i",
-                  "pattern": "\\.*HAILO RECEIPT"
+                  "pattern": ".*HAILO RECEIPT"
                 }
               }
             }],
@@ -35,7 +35,7 @@
           "subject": {
               "regexp": {
                   "flags": "i",
-                  "pattern": "\\.*Addison Lee Booking"
+                  "pattern": ".*Addison Lee Booking"
               }
           }
         }],

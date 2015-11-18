@@ -6,6 +6,7 @@
   "version": "0.1.0",
   "color": "#000000",
   "controller": {
+    "entry-point": "frontend/controller1.js",
     "types": [
         "summary"
     ],

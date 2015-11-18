@@ -11,7 +11,7 @@ In this step we are going to look for emails from two providers, from _Hailo_ or
 
 ### inputs
 
-This time we have two conditions that are connected with the `OR` operator. The one for Hailo is the same as before. The new one is for Addison Lee and tries to filter emails based on their subject using the following pattern `^\\s*Addison Lee Booking`.
+This time we have two conditions that are connected with the `OR` operator. The one for Hailo is the same as before. The new one is for Addison Lee and tries to filter emails based on their subject using the following pattern `.*Addison Lee Booking`.
 
 ```
 "filter": {
@@ -26,7 +26,7 @@ This time we have two conditions that are connected with the `OR` operator. The 
     "subject": {
       "regexp": {
         "flags": "i",
-        "pattern": "\\s*Addison Lee Booking"
+        "pattern": ".*Addison Lee Booking"
       }
     }
   }],
