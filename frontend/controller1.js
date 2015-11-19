@@ -1,3 +1,10 @@
+/**
+ * Frontend entry point
+ *
+ * Copyright (c) 2015 Redsift Limited. All rights reserved.
+ */
+'use strict';
+
 include('redsift.js');
 
 Sift.Controller.loadView = function (value, resolve, reject) {

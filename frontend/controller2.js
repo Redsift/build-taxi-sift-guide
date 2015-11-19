@@ -1,3 +1,8 @@
+/**
+ * Frontend entry point
+ *
+ * Copyright (c) 2015 Redsift Limited. All rights reserved.
+ */
 'use strict';
 
 /*globals include, Sift, console, moment*/

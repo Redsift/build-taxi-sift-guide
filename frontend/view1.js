@@ -1,12 +1,12 @@
 /**
- * Redsift's callbacks
+ * Sift's View callbacks
  *
  * Copyright (c) 2015 Redsift Limited. All rights reserved.
  */
 
 
 /**
- * Called by the framework when fe/index.js calls the resolve function
+ * Called by the framework when frontend/controller.js calls the resolve function
  *
  * Parameters:
  * value: {object} (data object returned by the load or resolve methods in the controller)

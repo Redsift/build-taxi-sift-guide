@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%">
+
+<head>
+    <!-- Basic Page Needs –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Taxi Sift</title>
+    <meta name="description" content="An example of a taxi receipt aggregator.">
+    <meta name="author" content="Redsift Limited">
+    <!-- Mobile Specific Metas –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=320, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <!-- CSS –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body id="home" style="height:100%">
+    <div class="container"> 
+        <div class="row">
+            <div class="twelve columns">
+                <div class="chart" id="taxiChartContainer"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="twelve columns">
+                <div class="table" id="taxiTableContainer" style="display:none">
+                    <table class="u-full-width" id="taxiTable">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Month</th>
+                                <th>
+                                    <img src="./assets/ico_addison.png" />
+                                </th>
+                                <th>
+                                    <img src="./assets/ico_hailo.png" />
+                                </th>
+                                <th>
+                                    <img src="./assets/ico_uber.png" />
+                                </th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="taxiTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="sift/js/redsift.js"></script>
+    <script src="libs/moment.min.js"></script>
+    <script src="libs/d3.v3.min.js"></script>
+    <script src="libs/dimple.v2.1.6.min.js"></script>
+    <script src="view3.js"></script>
+</body>
+
+</html>

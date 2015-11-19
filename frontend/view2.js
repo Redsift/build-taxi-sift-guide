@@ -1,8 +1,10 @@
 /**
- * View callbacks
-*/
+ * Sift's View callbacks
+ *
+ * Copyright (c) 2015 Redsift Limited. All rights reserved.
+ */
 
-/* globals d3, dimple, Sift */
+/* globals d3, dimple, Sift, console */
 
 var _chart = null;
 
@@ -11,7 +13,7 @@ var _chart = null;
  */
 // Called by the framework when client/index.js calls the resolve function
 Sift.View.presentView = function (value) {
-  console.log('presentView: ', value);
+  console.log('building-guide: presentView: ', value);
   if (value.chart) {
     _formatPresentationAxis(value.chart);
     _updateCompactView(value);
@@ -22,7 +24,7 @@ Sift.View.presentView = function (value) {
  * Called when a sift starts to transition between modes
 */
 Sift.View.willPresentView = function (value) {
-	console.log('willPresentView: ', value);
+	console.log('building-guide: willPresentView: ', value);
 };
 
 /**
