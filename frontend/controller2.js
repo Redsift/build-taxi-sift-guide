@@ -6,24 +6,40 @@ include('redsift.js');
 include('moment.js');
 
 Sift.Controller.loadView = function (value, resolve, reject) {
-  console.log('sift-taxi: loadView', value);
-  var ret = {};
-  ret.label = 'Taxi Sift';
+  console.log('building-guide: loadView', value);
   var height = value.sizeClass.current.height;
-  if (height === 'none') {
-    loadTextSummaryView(resolve, reject);
+
+  var ret = {
+    label: 'Taxi Sift',
+    html: 'frontend/view2.html',
+    data: {}
+  };
+
+  // Asynchronous return
+  if (height === 'compact') {
+    loadCompactSummaryView(value.sizeClass.current, resolve, reject);
   }
-  else {
-    ret.html = 'frontend/view2.html';
-    ret.data = {};
-    ret.data.sizeClass = value.sizeClass.current;
-    if (height === 'compact') {
-      loadCompactSummaryView(value.sizeClass.current, resolve, reject);
-    }
-  }
+
   // Synchronous return
   return ret;
 };
+
+function loadCompactSummaryView(sizeClass, resolve, reject) {
+  console.log('building-guide: loadCompactSummaryView');
+  // In the chart, we only show receipts in the last 6 months
+  var cKeys = getChartKeys();
+  Sift.Storage.get({
+      bucket: 'month',
+      keys: cKeys
+    }).then(function (results) {
+      var monthMap = createMonthMap(cKeys, results);
+      var chart = createChart(cKeys, monthMap);
+      resolve({html: 'frontend/view2.html', label: 'Taxi Sift', data: {sizeClass: sizeClass, chart: chart}});
+    }, function (error) {
+      console.error('building-guide: loadCompactSummaryView: Storage.get failed: ', error);
+      reject(error);
+    });
+}
 
 /**
  * Local functions
@@ -87,47 +103,4 @@ function createMonthMap(keys, results) {
     }
   }
   return monthMap;
-}
-
-function loadTextSummaryView(sizeClass, resolve, reject) {
-  console.log('sift-taxi: loadTextSummaryView');
-  Sift.Storage.get({
-        bucket: 'year',
-        keys: ['' + moment().year()]
-    })
-    .then(function (responses) {
-      // There should only ever be 1 key
-      if(responses && responses.length === 1) {
-          var summary;
-          if(responses[0].value) {
-              var total = JSON.parse(responses[0].value);
-              summary = 'Taxi: £' + total.currency.GBP.toFixed(0) + ' in ' + moment().year();
-          }
-          else {
-              summary = 'Taxi: £0 in ' + moment().year();
-          }
-          resolve({label: summary, data: {sizeClass: sizeClass}});
-      }
-    }, function (error) {
-      console.error('sift-taxi: loadTextSummaryView: storage get failed: ', error);
-      reject(error);
-    });
-}
-
-function loadCompactSummaryView(sizeClass, resolve, reject) {
-  console.log('sift-taxi: loadCompactSummaryView');
-  // In the chart, we only show receipts in the last 6 months
-  var cKeys = getChartKeys();
-  Sift.Storage.get(
-    {
-      bucket: 'month',
-      keys: cKeys
-    }).then(function (results) {
-      var monthMap = createMonthMap(cKeys, results);
-      var chart = createChart(cKeys, monthMap);
-      resolve({html: 'frontend/view2.html', label: 'Taxi Sift', data: {sizeClass: sizeClass, chart: chart}});
-    }, function (error) {
-      console.error('sift-taxi: loadCompactSummaryView: storage get failed: ', error);
-      reject(error);
-    });
 }

@@ -29,12 +29,12 @@ Sift.View.willPresentView = function (value) {
  * Views presentation (compact)
  */
 function _updateCompactView(data) {
-	if (_chart) {
-		_updateTaxiChart(_chart, data.chart);
+  if (_chart) {
+    _updateTaxiChart(_chart, data.chart);
   }
   else {
     _chart = _createTaxiChart('#taxiChartContainer', data.chart);
-	}
+  }
 }
 
 

@@ -19,6 +19,7 @@ Bellow we have the list of steps which you can follow to implement bit by bit th
 4. [Nested Filters](./docs/Nested-Filters.md)
 5. [Multiple Nodes](./docs/Multiple-Nodes.md)
 6. [Aggregating Results](./docs/Aggregating-Results.md)
+7. [Visualise Data](./docs/Visualise-Data.md)
 
 
 # Hello Sift!
