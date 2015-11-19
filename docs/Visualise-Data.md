@@ -82,9 +82,10 @@ Sift.View.presentView = function (value) {
 };
 ```
 
-## Pretty results:
+[//]: # (## Pretty results:)
 
-<img src='./screenshots/step7Chart.jpg'>
+[//]: # (TODO: when label is fixed)
+[//]: # (<img src='./screenshots/step7Chart.jpg'>)
 
 ## Files
 
