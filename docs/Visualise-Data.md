@@ -82,10 +82,12 @@ Sift.View.presentView = function (value) {
 };
 ```
 
-[//]: # (## Pretty results:)
+## Pretty results:
 
-[//]: # (TODO: when label is fixed)
-[//]: # (<img src='./screenshots/step7Chart.jpg'>)
+Here is a screen shot of our bar chart with some data:
+
+<img src='./screenshots/step7Compact.jpg'>
+
 
 ## Files
 
