@@ -22,9 +22,10 @@ Sift.Controller.loadView = function (value, resolve, reject) {
   var height = value.sizeClass.current.height;
 
   var ret = {
-    label: 'Taxi Sift',
     html: 'frontend/view2.html',
-    data: {}
+    data: {
+       label: 'Taxi Sift'
+    }
   };
 
   // Asynchronous return
@@ -37,7 +38,7 @@ Sift.Controller.loadView = function (value, resolve, reject) {
 };
 ```
 
-The `loadView()` callback will be called from the framework every time the Sift loads or new data have been added to the Sift's storage. This callback supports both a _synchronous_ and an _asynchronous_ return type and both need to return an object that has a similar structure to the `ret` object we are constructing here. We supply the path to the `html` file we want to load, a `label` which you can think of as a page title and data for a frontend code to work its magic.
+The `loadView()` callback will be called from the framework every time the Sift loads. This callback supports both a _synchronous_ and an _asynchronous_ return type and both need to return an object that has a similar structure to the `ret` object we are constructing here. We supply the path to the `html` file we want to load and some `data` for the frontend code to work its magic. The `label` field which you can think of as a page title is being used by the framework in two occasions **only** the _synchronous_ response and the _asynchronous_ response when `height` equals to `none`.
 
 The _synchronous_ return gives the opportunity to the Sift developer to present some data or a spinner like screen to the Sift user, while data are being loaded for the view.
 
@@ -55,8 +56,7 @@ function loadCompactSummaryView(sizeClass, resolve, reject) {
     var monthMap = createMonthMap(cKeys, results);
     var chart = createChart(cKeys, monthMap);
     resolve({
-      html: 'frontend/view2.html', 
-      label: 'Taxi Sift', 
+      html: 'frontend/view2.html',
       data: {
         sizeClass: sizeClass, 
         chart: chart

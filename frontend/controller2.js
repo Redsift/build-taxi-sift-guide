@@ -15,9 +15,10 @@ Sift.Controller.loadView = function (value, resolve, reject) {
   var height = value.sizeClass.current.height;
 
   var ret = {
-    label: 'Taxi Sift',
     html: 'frontend/view2.html',
-    data: {}
+    data: {
+      label: 'Taxi Sift'
+    }
   };
 
   // Asynchronous return
@@ -39,7 +40,7 @@ function loadCompactSummaryView(sizeClass, resolve, reject) {
     }).then(function (results) {
       var monthMap = createMonthMap(cKeys, results);
       var chart = createChart(cKeys, monthMap);
-      resolve({html: 'frontend/view2.html', label: 'Taxi Sift', data: {sizeClass: sizeClass, chart: chart}});
+      resolve({html: 'frontend/view2.html', data: {sizeClass: sizeClass, chart: chart}});
     }, function (error) {
       console.error('building-guide: loadCompactSummaryView: Storage.get failed: ', error);
       reject(error);
