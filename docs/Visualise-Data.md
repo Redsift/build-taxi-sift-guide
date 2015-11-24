@@ -2,7 +2,7 @@
 
 In this step we are going to add our first visualisation.
 
-First, please edit you `sift.json` file to look like this:
+First, please edit your `sift.json` file to look like this:
 
 `"controller": { "entry-point": "frontend/controller2.js", ... }`
 

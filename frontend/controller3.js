@@ -14,12 +14,13 @@ include('moment.js');
 
 Sift.Controller.loadView = function (value, resolve, reject) {
   console.log('building-guide: loadView', value);
+  var height = value.sizeClass.current.height;
+
   var ret = {
       data: {
           label: 'Taxi Sift'
       }
   };
-  var height = value.sizeClass.current.height;
 
   // Asynchronous return
   if (height === 'none') {
