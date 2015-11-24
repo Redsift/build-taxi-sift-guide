@@ -69,7 +69,9 @@ Sift.View.presentView = function (value) {
   }
 };
 ```
+## Looong layout:
 
+Try to resize the Sift's view port by clicking on the border and pulling it lower. You should be able to see a nice table, showing total charges per month and per company.
 
 ## Files
 
