@@ -54,7 +54,7 @@ function _formatPresentationAxis(_d) {
 function _createTaxiChart(container, data) {
 	var svg = dimple.newSvg(container, '100%', 180);
 	var chart = new dimple.chart(svg, data);
-	chart.setMargins(chart.x, 20, 0, 20);
+	chart.setMargins(0, 20, 0, 20);
 	var xAxis = chart.addCategoryAxis('x', 'Display');
 	xAxis.addGroupOrderRule('Date');
 	xAxis.addOrderRule('Date');
