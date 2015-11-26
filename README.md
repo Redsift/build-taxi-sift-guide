@@ -21,7 +21,7 @@ Bellow we have the list of steps which you can follow to implement bit by bit th
 6. [Aggregating Results](./docs/Aggregating-Results.md)
 7. [Visualise Data](./docs/Visualise-Data.md)
 8. [More Layouts](./docs/More-Layouts.md)
-
+9. [Updates and Views](./docs/Update-Views.md)
 
 # Hello Sift!
 
