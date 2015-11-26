@@ -15,7 +15,6 @@ var _chart = null;
 Sift.View.presentView = function (value) {
   console.log('building-guide: presentView: ', value);
   if (value.chart) {
-    _formatPresentationAxis(value.chart);
     _updateCompactView(value);
   }
 };
@@ -31,6 +30,8 @@ Sift.View.willPresentView = function (value) {
  * Views presentation (compact)
  */
 function _updateCompactView(data) {
+
+  _formatPresentationAxis(data.chart);
   if (_chart) {
     _updateTaxiChart(_chart, data.chart);
   }

@@ -40,7 +40,7 @@ Sift.View.presentView = function (value) {
  * Parameters:
  * @value: {
  *  sizeClass: {
- *    previous: {width: 'none'|'compact'|'full', height: 'none'|'list'|'compact'|'full'}, 
+ *    previous: {width: 'none'|'compact'|'full', height: 'none'|'list'|'compact'|'full'},
  *    current: {width: 'none'|'compact'|'full', height: 'none'|'list'|'compact'|'full'}
  *  },
  *  type: 'compose'|'email-detail'|'summary'

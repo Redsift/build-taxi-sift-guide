@@ -4,7 +4,7 @@
  * Copyright (c) 2015 Redsift Limited. All rights reserved.
  */
 
-/* globals d3, dimple, Sift, console */
+/* globals d3, dimple, Sift, console, moment*/
 
 // Stores the currently displayed data so view can be reflown during transitions
 var _currentData = {};
@@ -33,7 +33,26 @@ Sift.View.presentView = function (value) {
 
 Sift.View.willPresentView = function (value) {
     console.log('building-guide: willPresentView: ', value);
+    if (value.sizeClass.current.height === 'full') {
+        _updateFullView(_currentData);
+    }
+    else if (value.sizeClass.current.height === 'compact') {
+        d3.select('body').select('#taxiTableContainer').style('display', 'none');
+        _updateCompactView(_currentData);
+    }
 };
+
+Sift.Controller.addEventListener('newData', function (data) {
+    console.log('building-guide: onNewData: ', data);
+
+    if(data.chart){
+        _currentData.chart = data.chart;
+    }
+    if(data.table){
+        _currentData.table = data.table;
+    }
+    _updateFullView(data);
+});
 
 /**
  * Views presentation (full & compact)
