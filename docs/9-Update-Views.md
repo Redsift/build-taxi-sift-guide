@@ -65,6 +65,8 @@ Provided that the `run-sift` script is running in the background:
 
 You might have noticed that we have a framework callback in our `view*.js` file with the same name, as the event in the title, that we have not implemented for some steps now. This callback is being fired every time we click on the border of the Sift's viewport and we move it to and from the different view port borders. So far, when we were changing the dimensions of the view port it was essentially hiding away whatever was loaded there during startup or some previous action. Now we have the ability to present the appropriate visualisation while holding down our mouse button and moving between the different view port sizes. As we approach the `compact` size the visualisation for the `full` view will go away and vice versa. The only exception is the first time we switch to the `full` view because data have not been loaded yet for the `table` visualisation.
 
+### View
+
 ```javascript
 Sift.View.willPresentView = function (value) {
   console.log('building-guide: willPresentView: ', value);
@@ -77,6 +79,7 @@ Sift.View.willPresentView = function (value) {
   }
 };
 ```
+
 ## Files
 
 **frontened/controller4.js**
