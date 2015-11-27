@@ -77,3 +77,10 @@ Sift.View.willPresentView = function (value) {
   }
 };
 ```
+## Files
+
+**frontened/controller4.js**
+
+**frontend/view4.html**
+
+**frontend/view4.js**
