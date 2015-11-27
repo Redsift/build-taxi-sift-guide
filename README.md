@@ -12,16 +12,18 @@ That's all great for the *backend*, but what is happening with the *frontend*? I
 
 Bellow we have the list of steps which you can follow to implement bit by bit the Taxi Sift. Each step builds on top of the previous and at the same trying to introduce a new concept. Besides following them sequentially you can read them in an ad hoc fashion in order to focus on aspects that you are interested in. One file might have multiple versions, since we keep building on top of them and adding code. At the end of each step you can find the full list of files that you need for the specific step. We only insist on following the Hello Sift! example first that takes care of all the needed configuration. Happy Sifting! 
 
-0. Hello Sift!
-1. [Simple DAG](./docs/Simple-DAG.md)
-2. [Mapping Emails](./docs/Mapping-Emails.md)
-3. [Key Operations](./docs/Key-Ops.md)
-4. [Nested Filters](./docs/Nested-Filters.md)
-5. [Multiple Nodes](./docs/Multiple-Nodes.md)
-6. [Aggregating Results](./docs/Aggregating-Results.md)
-7. [Visualise Data](./docs/Visualise-Data.md)
-8. [More Layouts](./docs/More-Layouts.md)
-9. [Updates and Views](./docs/Update-Views.md)
+<ol start="0">
+  <li> Hello Sift! </li>
+  <li><a href="./docs/1-Simple-DAG.md"> Simple DAG </a></li>
+  <li><a href="./docs/2-Mapping-Emails.md"> Mapping Emails </a></li>
+  <li><a href="./docs/3-Key-Ops.md"> Key Operations </a></li>
+  <li><a href="./docs/4-Nested-Filters.md"> Nested Filters </a></li>
+  <li><a href="./docs/5-Multiple-Nodes.md"> Multiple Nodes </a></li>
+  <li><a href="./docs/6-Aggregating-Results.md"> Aggregating Results </a></li>
+  <li><a href="./docs/7-Visualise-Data.md"> Visualise Data </a></li>
+  <li><a href="./docs/8-More-Layouts.md"> More Layouts </a></li>
+  <li><a href="./docs/9-Update-Views.md"> Updates and Views </a></li>
+</ol>
 
 # Hello Sift!
 
