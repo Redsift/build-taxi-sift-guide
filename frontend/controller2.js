@@ -16,9 +16,7 @@ Sift.Controller.loadView = function (value, resolve, reject) {
 
   var ret = {
     html: 'frontend/view2.html',
-    data: {
-      label: 'Taxi Sift'
-    }
+    data: {}
   };
 
   // Asynchronous return
@@ -28,6 +26,10 @@ Sift.Controller.loadView = function (value, resolve, reject) {
 
   // Synchronous return
   return ret;
+};
+
+Sift.Controller.loadLabel = function (value, resolve, reject) {
+  return {data: 'Taxi Sift'};
 };
 
 function loadCompactSummaryView(sizeClass, resolve, reject) {

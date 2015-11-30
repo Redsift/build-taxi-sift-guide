@@ -16,30 +16,47 @@ Sift.Controller.loadView = function (value, resolve, reject) {
   console.log('building-guide: loadView', value);
   var height = value.sizeClass.current.height;
 
-  var ret = {
-      data: {
-          label: 'Taxi Sift'
-      }
-  };
+  var ret = { data: {} };
 
   // Asynchronous return
-  if (height === 'none') {
-      loadTextView(resolve, reject);
+  ret.html = 'frontend/view4.html';
+  ret.data = {};
+  ret.data.sizeClass = value.sizeClass.current;
+  if (height === 'compact') {
+    loadCompactSummaryView(value.sizeClass.current, resolve, reject);
   }
-  else {
-    ret.html = 'frontend/view4.html';
-    ret.data = {};
-    ret.data.sizeClass = value.sizeClass.current;
-    if (height === 'compact') {
-      loadCompactSummaryView(value.sizeClass.current, resolve, reject);
-    }
-    else if (height === 'full') {
-      loadFullSummaryView(value.sizeClass.current, resolve, reject);
-    }
+  else if (height === 'full') {
+    loadFullSummaryView(value.sizeClass.current, resolve, reject);
   }
 
   // Synchronous return
   return ret;
+};
+
+Sift.Controller.loadLabel = function (value, resolve, reject) {
+  console.log('building-guide: loadLabelView');
+  Sift.Storage.get(
+    {
+      bucket: 'year',
+      keys: ['' + moment().year()]
+    })
+    .then(function (responses) {
+      // There should only ever be 1 key
+      if(responses && responses.length === 1) {
+        var summary;
+        if(responses[0].value) {
+            var total = JSON.parse(responses[0].value);
+            summary = 'Taxi: £' + total.currencies.GBP.toFixed(0) + ' in ' + moment().year();
+        }
+        else {
+            summary = 'Taxi: £0 in ' + moment().year();
+        }
+        resolve({ data: summary });
+      }
+    }, function (error) {
+        console.error('building-guide: loadLabelView: Storage.get failed: ', error);
+        reject(error);
+    });
 };
 
 // listen for changes in the `month` DB.
@@ -153,36 +170,6 @@ function createMonthMap(keys, results) {
     }
   }
   return monthMap;
-}
-
-function loadTextView(resolve, reject) {
-  console.log('building-guide: loadTextView');
-  Sift.Storage.get(
-    {
-      bucket: 'year',
-      keys: ['' + moment().year()]
-    })
-    .then(function (responses) {
-      // There should only ever be 1 key
-      if(responses && responses.length === 1) {
-        var summary;
-        if(responses[0].value) {
-            var total = JSON.parse(responses[0].value);
-            summary = 'Taxi: £' + total.currencies.GBP.toFixed(0) + ' in ' + moment().year();
-        }
-        else {
-            summary = 'Taxi: £0 in ' + moment().year();
-        }
-        resolve({
-            data: {
-                label: summary
-            }
-        });
-      }
-    }, function (error) {
-        console.error('building-guide: loadTextView: Storage.get failed: ', error);
-        reject(error);
-    });
 }
 
 function loadCompactSummaryView(sizeClass, resolve, reject) {

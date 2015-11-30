@@ -18,8 +18,7 @@ Sift.Controller.loadView = function (value, resolve, reject) {
       title: 'Example Title',
       subtitle: 'Example subtitle',
       image: {
-        url: 'assets/redsift-logo.png',
-        size: 'large'
+        url: 'assets/redsift-logo.png'
       }
     };
   }
@@ -30,8 +29,7 @@ Sift.Controller.loadView = function (value, resolve, reject) {
       setTimeout(function () {
         // Asynchronous resolve
         resolve ({
-          data: {message: 'resolved asynchronously'},
-          label: 'example-sift'
+          data: {message: 'resolved asynchronously'}
         });
       }, 1500);
     }
@@ -46,7 +44,10 @@ Sift.Controller.loadView = function (value, resolve, reject) {
   // Synchronous return
   return {
     data: data,
-    html: html,
-    label: 'example-sift'
+    html: html
   };
+};
+
+Sift.Controller.loadLabel = function (value, resolve, reject) {
+  return {data: 'example-sift'};
 };
