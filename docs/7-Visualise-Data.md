@@ -23,9 +23,7 @@ Sift.Controller.loadView = function (value, resolve, reject) {
 
   var ret = {
     html: 'frontend/view2.html',
-    data: {
-       label: 'Taxi Sift'
-    }
+    data: {}
   };
 
   // Asynchronous return
@@ -36,13 +34,19 @@ Sift.Controller.loadView = function (value, resolve, reject) {
   // Synchronous return
   return ret;
 };
+
+Sift.Controller.loadLabel = function (value, resolve, reject) {
+  return {data: 'Taxi Sift'};
+};
 ```
 
-The `loadView()` callback will be called from the framework every time the Sift loads. This callback supports both a _synchronous_ and an _asynchronous_ return type and both need to return an object that has a similar structure to the `ret` object we are constructing here. We supply the path to the `html` file we want to load and some `data` for the frontend code to work its magic. The `label` field which you can think of as a page title is being used by the framework in two occasions **only** the _synchronous_ response and the _asynchronous_ response when `height` equals to `none`.
+The `loadView()` callback will be called from the framework every time the Sift loads. This callback supports both a _synchronous_ and an _asynchronous_ return type and both need to return an object that has a similar structure to the `ret` object we are constructing here. We supply the path to the `html` file we want to load and some `data` for the frontend code to work its magic. 
 
-The _synchronous_ return gives the opportunity to the Sift developer to present some data or a spinner like screen to the Sift user, while data are being loaded for the view.
+The `loadLabel()` callback will be called every time a title text for the Sift can be presented by the framework. Here we are only making use of the synchronous response.
 
-Now that we are hypnotising the Sift user with our awesome spinner the `loadCompactSummaryView()` handler we implemented is running in the background, querying for the data we want and then it will either `resolve` or `reject` following the Promise paradigm. Below you can see the implementation of the handler and how it makes a request to the [Storage](https://docs.redsift.io/docs#storage-api) API for data.
+The _synchronous_ return gives the opportunity to the Sift developer to present some data or a loading screen to the Sift user, while data are being loaded for the view.
+
+While we are hypnotising the Sift user with our awesome loading screen the `loadCompactSummaryView()` handler we implemented is running in the background, querying for the data we want and when it's done we will either `resolve` or `reject` following the Promise paradigm for an _asynchronous_ execution. Below you can see the implementation of the handler and how it makes a request to the [Storage](https://docs.redsift.io/docs#storage-api) API for data.
 
 ```javascript
 function loadCompactSummaryView(sizeClass, resolve, reject) {
@@ -81,12 +85,6 @@ Sift.View.presentView = function (value) {
   }
 };
 ```
-
-## Pretty results:
-
-Here is a screen shot of our bar chart with some data:
-
-<img src='./screenshots/step7Compact.jpg'>
 
 
 ## Files

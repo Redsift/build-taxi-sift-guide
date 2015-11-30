@@ -60,6 +60,7 @@ Sift.Controller.loadLabel = function (value, resolve, reject) {
         reject(error);
     });
 };
+
 /**
  * Local functions
  */
