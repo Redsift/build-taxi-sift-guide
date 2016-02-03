@@ -10,7 +10,12 @@
                 "pattern": "billing@hailocab\\.com" 
               }
             }
-          }]
+          }],
+          "wants": [
+                "archive",
+                "htmlBody",
+                "textBody"
+            ]
         }
       }
     }

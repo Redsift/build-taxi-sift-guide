@@ -18,6 +18,11 @@
               }
             }
           }],
+          "wants": [
+              "archive",
+              "htmlBody",
+              "textBody"
+          ],
           "operator": "OR"
         }
       }

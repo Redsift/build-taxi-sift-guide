@@ -21,7 +21,12 @@
                 }
               }
             }],
-            "operator": "AND"
+            "operator": "AND",
+            "wants": [
+              "archive",
+              "htmlBody",
+              "textBody"
+            ]
         },
         {
           "from": {
@@ -39,6 +44,11 @@
               }
           }
         }],
+        "wants": [
+          "archive",
+          "htmlBody",
+          "textBody"
+        ],
         "inMailbox": "all",
         "operator": "OR"
         }
