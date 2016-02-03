@@ -7,7 +7,7 @@
             "from": {
               "regexp": {
                 "flags": "i",
-                "pattern": "billing@hailocab\\.com"
+                "pattern": "billing@hailocab\\.com" 
               }
             }
           }]

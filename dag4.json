@@ -56,7 +56,7 @@
     },{
       "#": "Messages mapper",
       "implementation": {
-        "node": "server/map2.js"
+        "javascript": "server/map2.js"
       },
       "input": {
         "bucket": "messages",

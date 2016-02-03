@@ -26,7 +26,7 @@
   "nodes": [{
       "#": "Messages mapper",
       "implementation": {
-          "node": "server/map1.js"
+          "javascript": "server/map1.js"
       },
       "input": {
           "bucket": "taxi"
