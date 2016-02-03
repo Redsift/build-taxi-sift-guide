@@ -40,7 +40,7 @@ This will create a new folder called `hello-sift` with all the files that a Sift
 
 To run the newly created Sift:
 
-`$ redsift run-sift hello-sift/sift.json`
+`$ redsift run hello-sift`
 
 Open your Chrome browser and go to `http://localhost:7438`. You will see the SDK with the `hello-sift` Sift running. Here is a screen-shot:
 
