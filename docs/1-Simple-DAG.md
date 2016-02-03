@@ -7,7 +7,7 @@ To get the most out of this guide you need to have email receipts from one of th
 
 **A few things to do before we start:**
 
-Add your email credentials in `email_creds.json`. We are using access tokens, not passwords. You can learn how to acquire yours [here](https://docs.redsift.io/docs/#jmap).
+Add your email credentials in `email_creds.json`. We are using access tokens, not passwords. You can learn how to acquire yours [here](https://docs.redsift.io/docs#1-configure-your-email-credentials).
 
 If you are not using this repo, make sure you coppied the implementation that the `dag` property in `sift.json` looks like this:
 
@@ -15,9 +15,13 @@ If you are not using this repo, make sure you coppied the implementation that th
 
 Start the SDK with your sift:
 
-`$ redsift run-sift <PATH TO>/build-taxi-sift-guide/sift.json`
+`$ redsift run <PATH TO>/build-taxi-sift-guide/`
 
-With your Chrome browser go to `http://localhost:7438`
+or by navigating inside the `build-taxi-sift-guide` folder and doing:
+
+`$ redsift run `
+
+Then with your Chrome browser go to `http://localhost:7438`
 
 
 
@@ -29,7 +33,7 @@ If you have ever used their services you will notice that all their receipts are
 
 ### inputs
 
-We are saying that one of our inputs is going to be from `emails` and we are giving it a name `taxi`. The `taxi` input is filtering data with only one condition: all the emails that come from the _billing@hailocab\\.com_ email address. We need to escape the dot `.`, since this is a regexp.
+What we are saying here is that one of our inputs is going to be from `emails` and we are giving it a name `taxi`. The `taxi` input is filtering data with only one condition: all the emails that come from the _billing@hailocab\\.com_ email address. We need to escape the dot `.`, since this is a regexp.
 
 ```
 {
@@ -97,17 +101,15 @@ We want to export the data from the DAG, so we defined an `exports` type of outp
 ```
 ## Did we get any data?
 
-In a new terminal run:
+In your Chrome browser and in the SDK tab:
 
-`$ redsift run-dag <PATH TO>/build-taxi-sift-guide/sift.json`
+Press the arrow button in the top right corner to start processing your emails.
 
-In your Chrome browser: 
-
-Go to View > Developer > Javascript Console
+Then go to View > Developer > Javascript Console
 
 Click on the Resources tab and then on IndexedDB.
 
-You should see something like the one below:
+You should see some data like below:
 
 <img src='./screenshots/step1SomeData.jpg'>
 

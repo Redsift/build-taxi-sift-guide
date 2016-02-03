@@ -12,10 +12,10 @@
             }
           }],
           "wants": [
-                "archive",
-                "htmlBody",
-                "textBody"
-            ]
+              "archive",
+              "htmlBody",
+              "textBody"
+          ]
         }
       }
     }
