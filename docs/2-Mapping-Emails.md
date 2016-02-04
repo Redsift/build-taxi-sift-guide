@@ -42,13 +42,13 @@ It has an implementation which is located in the file `server/map1.js`.
 
 Input is coming directly from the `taxi` input. Since we are not performing any key operations we can get our inputs directly from the DAG inputs. So, for this step we skipped the `node1` we created in the first step. We are going to bring it back in the next step for a key selection.
 
-Output is to receipts which later on is going to be a `store` for the DAG but for now we are exporting it so we can observe the new layout of our data.
+Output is to `receipts` which later on is going to be a `store` for the DAG but for now we are exporting it so we can observe the new layout of our data.
 
 ```
 [{
   "#": "Messages mapper",
   "implementation": {
-      "node": "server/map1.js"
+      "javascript": "server/map1.js"
   },
   "input": {
       "bucket": "taxi"
@@ -63,7 +63,7 @@ Output is to receipts which later on is going to be a `store` for the DAG but fo
 
 This is the first time we supply an implementation for a node. What we are trying to achieve here is to look through the text of the email for a text extract that looks something like `Total: £34.50`. We use a regexp pattern to first find a match in the preview of the email and if that fails we continue for a full scan of the body of the email. When we find what we are looking for, all we are doing is creating a JSON object with a `name`, `key` and `value` and push it to the array `ret` we are going to return once we are done with all the emails.
 
-Below you can see an extract of the actual implementation trying to highlight the important bits. The full implementation can be found a bit lower. 
+Below you can see an extract of the actual implementation trying to highlight the important bits. The full implementation can be found in the files mentioned at the end. 
 
 >
 Hint: you will need to install the dependency `string` with npm before trying to execute it.
@@ -130,11 +130,9 @@ We made `receipts` a DAG `output` for now since there is no other node using it,
 
 ## What does it look like now?
 
-Since we changed our DAG quite a bit we need to delete our local storage first. Press the big black button `DELETE DBS`.
+Since we changed our DAG quite a bit we need to delete our local storage first. So, click on the trash can icon at the top right corner of the SDK.
 
-Then run again your DAG from the terminal like we did in the first step with:
-
-`$ redsift run-dag <PATH TO>/build-taxi-sift-guide/sift.json`
+Then run again your DAG by pressing the arrow at the top right corner of the SDK.
 
 Look for `receipts` now in your IndexedDB:
 

@@ -19,9 +19,9 @@
             }
           }],
           "wants": [
-              "archive",
-              "htmlBody",
-              "textBody"
+            "archive",
+            "htmlBody",
+            "textBody"
           ],
           "operator": "OR"
         }
