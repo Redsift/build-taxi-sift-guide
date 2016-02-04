@@ -4,13 +4,15 @@
 <head>
   <!-- Basic Page Needs –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title></title>
+  <title>Sift Template</title>
   <meta name="description" content="">
   <meta name="author" content="">
   <!-- Mobile Specific Metas –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=320, initial-scale=1, maximum-scale=1, user-scalable=0">
   <!-- CSS –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- You can optionally use some of Redsift styles, remove the next line if you don't want to -->
+  <link rel="stylesheet" type="text/css" href="https://static.redsift.io/ui/latest/css/redsift-light.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <!-- Almost everything is the body tag, exist for the completeness of the example -->
 <!-- Exception: some javascript dependencies scroll down for more info -->
@@ -24,11 +26,19 @@
   <div class="example-label"><span>height: </span><span id="height">compact</span></div>
   <br>
   <div class="example-label"><span id="message"></span></div>
+  <br>
+  <div class="example-label"><button id="load-data">Load Data</button></div>
+  <br>
+  <div class="example-label"><span id="data"></span></div>
+  <br>
+  <div class="example-label"><button id="notify-controller">Notify Controller</button></div>
 
-  <!-- Required Libraries -->
+  <!-- Required Library -->
+  <!-- Injected by the SDK. DO NOT REMOVE this script! -->
   <script src="sift/js/redsift.js"></script>
+
+  <!-- Implemetation file for all the view-related callbacks. -->
   <script src="view1.js"></script>
-  <!-- Other Libraries -->
 
 </body>
 
