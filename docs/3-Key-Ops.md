@@ -6,22 +6,22 @@ Please edit your `sift.json` file to look like this:
 
 ## Using `with` in nodes.
 
-In this example we are focusing on a node that performs a join operation over two inputs sources using the `with` property and outputs data to a `store` that is also using as an input. 
+In this example we are focusing on a node that performs a join operation over two inputs sources using the `with` property and outputs data to a `store` that is also using it as an input. 
 
 
 ### nodes
 
-We are extending the `Messages mapper` node from the previous example. It now performs a join over `messages` and `msgDataWithIds` by using the `$hash` anchor. The `select` fields are used effectively as the two sides of the relationship you would expect after the `ON` operator in a regular SQL JOIN operation. The value `$hash` in each of them means select the entire key from each side and try to match it. 
+We are extending the `Messages mapper` node from the previous example. It now performs a join over `messages` and `msgDataWithIds` by using the `$hash` anchor. The `select` fields are used effectively as the two sides of the relationship you would expect after the `ON` operator in a regular SQL JOIN operation. The value `$hash` in each of them essentially translates to try and match the entirety of the key coming from each side.
 
 When we have a match the `with` property in the arguments of the implementation function, will be populated.
 
 Another new thing, in this node is the fact that it has two outputs. This is possible with the use of the `name` field in each of the JSON objects that our implementation emits.
 
-The last interesting bit here, is the cycle back of data from the node's output to its input. The trick here is that this will happen at a later stage. First the node will compute as if it had only one input and when data become available in the second input the node will be triggered again for a new computation. In this particular case we are using it to remove the value of a deleted email from our calculations.
+The last interesting bit here, is the cycle back of data from the node's outputs to its input. The trick here is that this will happen at a later stage. First the node will compute as if it had only one input and when data become available in the second input the node will be triggered again for a new computation. In this particular case we are using it to remove the value of a deleted email from our calculations.
 
 We brought back `node1` as an intermediate step since we are performing a key operation over our node's inputs and we are restricted from using directly a DAG `input`.
 
-The addition of nodes `node2` and `node3` is done for educational reasons, to observe their output, and have no meaning in our computation process.
+The addition of nodes `node2` and `node3` is meant to enhance this example by observing their output, and have no value in our computation process.
 
 ```
 [{
@@ -35,7 +35,7 @@ The addition of nodes `node2` and `node3` is done for educational reasons, to ob
 },{
   "#": "Messages mapper",
   "implementation": {
-    "node": "server/map2.js"
+    "javascript": "server/map2.js"
   },
   "input": {
     "bucket": "messages",
@@ -70,7 +70,7 @@ The addition of nodes `node2` and `node3` is done for educational reasons, to ob
 
 ### implementation 
 
-The implementation is the same as before pretty much with two differences:
+The implementation is pretty much the same as before with two differences:
 
 * we are now emitting events to a second store as per the definition of our node above
 
@@ -129,23 +129,27 @@ We moved `receipts` from the DAG `outputs` section to `stores` and added `messag
 
 ## Want to see some action?
 
-As always delete your local storage and run again your DAG.
+As always, when you make changes in the `exports` section you need to delete your local storage and run again your DAG.
 
 If you observe the dbs created in IndexedDB nothing has changed from a data perspective, just their names.
 
 The difference now is that we are ready to process deletions. Let's simulate that!
 
-In a new terminal do the following:
+First restart the SDK process with the addition of the watch flag `-w`. The command will look like:
 
-1. `$ cd <PATH TO>/build-taxi-sift-guide/sdk_runs`
+`redsift run -w` (+ `<PATH TO SIFT FOLDER>`)
 
-2. `$ ls -td -- */ | head -n 1` this is just a fancy way to find the latest created folder.
+The watch flag gives us the ability to simulate in the SDK new emails arriving or deleting old ones. All is done by watching the appropriate folder we store the JMAP represantation of the emails we pulled based on our filters.
 
-3. navigate inside the output of the previous command.
+Now to simulate a deletion, in a new terminal do the following:
 
-4. `$ cd taxi/messages`
+1. Press the arrow button to run your DAG.
 
-5. now delete any file while keeping an eye at the output in the terminal you previously used to run your DAG. You should something like the following coming out.
+2. `$ cd <PATH TO>/build-taxi-sift-guide/sdk_runs`
+
+3. ``$ cd `ls -td -- */ | head -n 1`; cd taxi/messages``  (this is just a one liner to find the latest created folder, and then navigate inside it.)
+
+4. now delete any file while keeping an eye at the output in the terminal the SDK is running. You should something like the following coming out.
 
 
 <img src='./screenshots/step3KeyOps.jpg'>
