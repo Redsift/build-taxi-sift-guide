@@ -1,6 +1,6 @@
 # 1. A Simple DAG
 
-You can follow this tutorial straight out of this repo or continue with the one you created in our _Hello, Sift!_ guide. 
+You can follow this tutorial straight out of this repo which builds up from the one created in our _Hello, Sift!_ guide or continue with creating your own following the same steps.
 
 >
 To get the most out of this guide you need to have email receipts from one of the following taxi service providers: _AddisonLee_, _Uber_ or _Hailo_. You can still follow the guide, and learn how data flow from one step to the other, even without any data.
@@ -9,7 +9,7 @@ To get the most out of this guide you need to have email receipts from one of th
 
 Add your email credentials in `email_creds.json`. We are using access tokens, not passwords. You can learn how to acquire yours [here](https://docs.redsift.io/docs#1-configure-your-email-credentials).
 
-If you are not using this repo, make sure you coppied the implementation that the `dag` property in `sift.json` looks like this:
+If you are not using this repo, make sure you copied the implementation that the `dag` property in `sift.json` looks like this:
 
 `"dag":{ "$ref"": "dag1.json"}`
 
