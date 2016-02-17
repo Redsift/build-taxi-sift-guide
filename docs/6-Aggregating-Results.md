@@ -23,7 +23,7 @@ We perform the following key operations:
 {
   "#": "Month reducer",
   "implementation": {
-    "node": "server/month.js"
+    "javascript": "server/month.js"
   },
   "input": {
     "bucket": "convertedreceipts",
@@ -35,7 +35,7 @@ We perform the following key operations:
   },{
   "#": "Year reducer",
   "implementation": {
-    "node": "server/year.js"
+    "javascript": "server/year.js"
   },
   "input": {
     "bucket": "convertedreceipts",

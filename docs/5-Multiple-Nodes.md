@@ -18,7 +18,7 @@ Our new node is named `Currency Converter` and we supply an implementation with 
 {
   "#": "Currency converter",
   "implementation": {
-    "node": "server/currency.js"
+    "javascript": "server/currency.js"
   },
   "input": {
     "bucket": "receipts",

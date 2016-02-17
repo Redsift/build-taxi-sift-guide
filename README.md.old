@@ -146,7 +146,7 @@ Lastly we added an additional `node2` at the end, to export outside of the DAG t
 },{
   "#": "Messages mapper",
   "implementation": {
-      "node": "server/map1.js"
+      "javascript": "server/map1.js"
   },
   "input": {
       "bucket": "messages",
@@ -269,7 +269,7 @@ The last interesting bit here, is the cycle back of data from the node's output 
 },{
   "#": "Messages mapper",
   "implementation": {
-    "node": "server/map1.js"
+    "javascript": "server/map1.js"
   },
   "input": {
     "bucket": "messages",
@@ -438,7 +438,7 @@ Our new node is named `Currency Converter` and we supply an implementation with 
 {
   "#": "Currency converter",
   "implementation": {
-    "node": "server/currency.js"
+    "javascript": "server/currency.js"
   },
   "input": {
     "bucket": "receipts",
@@ -533,7 +533,7 @@ We perform the following key operations:
 {
   "#": "Month reducer",
   "implementation": {
-    "node": "server/month.js"
+    "javascript": "server/month.js"
   },
   "input": {
     "bucket": "convertedreceipts",
@@ -545,7 +545,7 @@ We perform the following key operations:
   },{
   "#": "Year reducer",
   "implementation": {
-    "node": "server/year.js"
+    "javascript": "server/year.js"
   },
   "input": {
     "bucket": "convertedreceipts",
