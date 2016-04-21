@@ -7,7 +7,7 @@ To get the most out of this guide you need to have email receipts from one of th
 
 **A few things to do before we start:**
 
-Add your email credentials in `email_creds.json`. We are using access tokens, not passwords. You can learn how to acquire yours [here](https://docs.redsift.io/docs#1-configure-your-email-credentials).
+Add your email credentials in `email_creds.json`. We are using access tokens, not passwords. You can learn how to acquire yours [here](http://docs.redsift.io/docs/sdk-configuring-email-access).
 
 If you are not using this repo, make sure you copied the implementation that the `dag` property in `sift.json` looks like this:
 

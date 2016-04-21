@@ -46,7 +46,7 @@ The `loadLabel()` callback will be called every time a title text for the Sift c
 
 The _synchronous_ return gives the opportunity to the Sift developer to present some data or a loading screen to the Sift user, while data are being loaded for the view.
 
-While we are hypnotising the Sift user with our awesome loading screen the `loadCompactSummaryView()` handler we implemented is running in the background, querying for the data we want and when it's done we will either `resolve` or `reject` following the Promise paradigm for an _asynchronous_ execution. Below you can see the implementation of the handler and how it makes a request to the [Storage](https://docs.redsift.io/docs#storage-api) API for data.
+While we are hypnotising the Sift user with our awesome loading screen the `loadCompactSummaryView()` handler we implemented is running in the background, querying for the data we want and when it's done we will either `resolve` or `reject` following the Promise paradigm for an _asynchronous_ execution. Below you can see the implementation of the handler and how it makes a request to the [Storage](http://docs.redsift.io/docs/client-code-siftstorage) API for data.
 
 ```javascript
 function loadCompactSummaryView(sizeClass, resolve, reject) {
