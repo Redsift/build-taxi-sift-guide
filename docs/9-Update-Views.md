@@ -56,14 +56,14 @@ Sift.Controller.addEventListener('newData', function (data) {
 ```
 ### Test the new stuff.
 
-Provided that the `run-sift` script is running in the background:
+Provided that the SDK is still running in the background:
 
-- Delete the local data, by pressing the big black button saying _DELETE DBS_. That will reload the page with an empty version of our visualisation.
-- Open a new terminal and run the `run-dag` script. You should be able to see your visualisation update every time the Dag spits new data in our local storage.
+- Delete the local data, by pressing the button that looks like a garbage can at the top left corner. That will reload the page with an empty version of our visualisation.
+- Press the arrow button for the processing to start. You should be able to see your visualisation update every time the DAG spits new data in our local storage.
 
 ## The `willPresentView` event
 
-You might have noticed that we have a framework callback in our `view*.js` file with the same name, as the event in the title, that we have not implemented for some steps now. This callback is being fired every time we click on the border of the Sift's viewport and we move it to and from the different view port borders. So far, when we were changing the dimensions of the view port it was essentially hiding away whatever was loaded there during startup or some previous action. Now we have the ability to present the appropriate visualisation while holding down our mouse button and moving between the different view port sizes. As we approach the `compact` size the visualisation for the `full` view will go away and vice versa. The only exception is the first time we switch to the `full` view because data have not been loaded yet for the `table` visualisation.
+You might have noticed that we have a framework callback in our `view*.js` file with the same name, as the event in the title, that we have not implemented for some steps now. This callback is being fired every time we click on the border of the Sift's viewport and we move it to and from the different view port borders. So far, when we were changing the dimensions of the view port it was essentially hiding away whatever was loaded there during startup or some previous action. Now we have the ability to present the appropriate visualisation while holding down our mouse button and moving between the different view port sizes. As we approach the `compact` size the visualisation for the `full` view will go away and vice versa. The only exception is the first time we switch to the `full` view because data might not have been loaded yet for the `table` visualisation.
 
 ### View
 
