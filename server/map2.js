@@ -23,7 +23,7 @@ const HTMLRegExp = {
 function yyyymmdd(d, separator) {
     var yyyy = d.getFullYear().toString();
     var mm = (d.getMonth() + 1).toString();
-    var dd = d.getDay().toString();
+    var dd = d.getDate().toString();
     return yyyy + separator + (mm[1] ? mm : '0' + mm[0]) + separator + (dd[1] ? dd : '0' + dd[0]);
 }
 
