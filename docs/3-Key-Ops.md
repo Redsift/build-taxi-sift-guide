@@ -131,30 +131,26 @@ We moved `receipts` from the DAG `outputs` section to `stores` and added `messag
 
 As always, when you make changes in the `exports` section you need to delete your local storage and run again your DAG.
 
-If you observe the dbs created in IndexedDB nothing has changed from a data perspective, just their names.
+If you observe the DBs created in IndexedDB in your browser, nothing has changed from a data perspective, just their names.
 
 The difference now is that we are ready to process deletions. Let's simulate that!
 
-First restart the SDK process with the addition of the watch flag `-w`. The command will look like:
+First select the `watch` mode from the drop down to the left of the processing (arrow) button.
 
-`redsift run -w` (+ `<PATH TO SIFT FOLDER>`)
-
-The watch flag gives us the ability to simulate in the SDK new emails arriving or deleting old ones. All is done by watching the appropriate folder we store the JMAP represantation of the emails we pulled based on our filters.
+The `watch` mode gives us the ability to simulate in the SDK new emails arriving or deleting old ones. All is done by watching the appropriate folder we store the JMAP representation of the emails we pulled based on our filters.
 
 Now to simulate a deletion, in a new terminal do the following:
 
 1. Press the arrow button to run your DAG.
 
-2. `$ cd <PATH TO>/build-taxi-sift-guide/sdk_runs`
+2. `$ cd <PATH TO>/build-taxi-sift-guide/sdk_tmp/runs`
 
 3. ``$ cd `ls -td -- */ | head -n 1`; cd taxi/messages``  (this is just a one liner to find the latest created folder, and then navigate inside it.)
 
-4. now delete any file while keeping an eye at the output in the terminal the SDK is running. You should something like the following coming out.
+4. now delete any file while keeping an eye at the output in the terminal the SDK is running to see the output of the event being processed.
 
 
-<img src='./screenshots/step3KeyOps.jpg'>
-
-We received some data in the `with` property of the argument for `map2.js`. That means that our join had a match, so the node was triggered for recomputation.
+We should have received some data in the `with` property of the argument for `map2.js`. That means that our join had a match, so the node was triggered for recomputation.
 
 ## Files
 
