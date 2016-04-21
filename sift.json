@@ -5,14 +5,9 @@
   "author": "",
   "version": "0.1.0",
   "color": "#000000",
-  "controller": {
-    "entry-point": "frontend/controller1.js",
-    "types": [
-        "summary"
-    ],
-    "minimum-size": {
-      "width": "compact",
-      "height": "compact"
+  "interfaces": {
+    "summary": {
+      "controller": "frontend/controller1.js"
     }
   },
   "dag": { "$ref":"./dag1.json" }
