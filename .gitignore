@@ -5,6 +5,6 @@ server/tests/_year
 server/tests/_month
 dump.svg
 server/tests/data
-sdk_runs/
+sdk_tmp/
 .*run.json
 
