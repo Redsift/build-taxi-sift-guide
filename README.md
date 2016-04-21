@@ -28,19 +28,19 @@ Bellow we have the list of steps which you can follow to implement bit by bit th
 # Hello Sift!
 
 
-Download the SDK, by opening your terminal and typing: 
+Download the SDK, by opening your terminal and copy pasting the following line: 
 
-`$ curl -sSL https://static-sdk.redsift.io/install | bash`
+`curl -sSL https://static-sdk.redsift.io/install | bash`
 
 Create a Sift skeleton by typing:
  
-`$ redsift create hello-sift`
+`redsift create hello-sift`
 
 This will create a new folder called `hello-sift` with all the files that a Sift needs.
 
 To run the newly created Sift:
 
-`$ redsift run hello-sift`
+`redsift run hello-sift`
 
 Open your Chrome browser and go to `http://localhost:7438`. You will see the SDK with the `hello-sift` Sift running. Here is a screen-shot:
 
