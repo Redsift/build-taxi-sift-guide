@@ -34,7 +34,7 @@
       "bucket":"messages"
     },
     "outputs": {
-      "example1":{}
+      "count":{}
     }
   }],
   "stores": {
@@ -44,7 +44,7 @@
   },
   "outputs":{
     "exports":{
-      "example1":{
+      "count":{
         "key$schema":"string"
       }
     }

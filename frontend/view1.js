@@ -93,9 +93,8 @@ Sift.View.willPresentView = function (value) {
 /**
  * Listens for 'count' events from the Controller
  */
-Sift.Controller.addEventListener('count', function (value) {
-  console.log('hello-sift: oncount', value);
-    document.getElementById('data').textContent = 'New data: ' + value + ' emails from \'gmail.com\' in your inbox';
+Sift.Controller.addEventListener('count', function () {
+  document.getElementById('data').textContent = 'New data: emails from \'gmail.com\' in your inbox';
 });
 
 function updateDOM(elem, value){
