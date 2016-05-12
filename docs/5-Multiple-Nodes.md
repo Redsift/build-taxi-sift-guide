@@ -56,16 +56,16 @@ We added the new stores that we need.
 ### outputs
 
 After adding the `out*` exports just so we can export the new stores we created, comes the interesting part of the `idList` and `tidList` exports which have an `import` field. 
-The convention here is that names that start with an underscore `_` are restricted and are meant only for system usage. With that said if we `import` a system bucket ( referring to an ObjectStore in indexedDB ) and follow the key convention we can write some information that can be used later in the Chrome extension when we want to do lookups on a per email or thread id, hence the names `_id.list` and `_tid.list` respectively.
+The convention here is that names that start with an underscore `_` are restricted and are meant only for system usage. With that said if we `import` a system bucket ( referring to an ObjectStore in indexedDB ) and follow the key convention we can write some information that can be used later in the Chrome extension when we want to do lookups on a per email or thread id, hence the names `_email.id` and `_email.tid` respectively.
 
 ```
 "outputs":{
   "exports":{
     "idList": {
-      "import": "_id.list"
+      "import": "_email.id"
     },
     "tidList": {
-      "import": "_tid.list"
+      "import": "_email.tid"
     },
     "outConvertedreceipts":{
       "key$schema": "string/string/string"
@@ -87,7 +87,7 @@ Next we convert the receipts in different currencies with the help of the base r
 
 ## State of local storage
 
-If you look inside IndexedDB this time you should be able to find four databases: `_id.list`, `_tid.list`, `outConvertedreceipts` and `outOpenexchangerates`.
+If you look inside IndexedDB this time you should be able to find four databases: `_email.id`, `_email.tid`, `outConvertedreceipts` and `outOpenexchangerates`.
 
 <img src='./screenshots/step5OER.jpg'>
 The `openexchangerates` is used as a cache inside the DAG, so we avoid unnecessary requests to the external API. So the `outOpenexchangerates` has the responses we got from the API for each day.
@@ -97,7 +97,7 @@ The `openexchangerates` is used as a cache inside the DAG, so we avoid unnecessa
 Here we can see what the receipts look like before we try to aggregate them.
 
 
-Lastly, the `_id.list` and `_tid.list` dbs, follow the convention of having as a key the `messageId` of an email and the `threadId` an email belongs too respectively. The data stored in those dbs, will be imported by the framework if the Sift implements the `list` view.
+Lastly, the `_email.id` and `_email.tid` dbs, follow the convention of having as a key the `messageId` of an email and the `threadId` an email belongs too respectively. The data stored in those dbs, will be imported by the framework if the Sift implements the `list` view.
 TODO example
 
 ## Files
