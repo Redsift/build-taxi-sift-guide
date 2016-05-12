@@ -476,16 +476,16 @@ We added the new stores that we need.
 ### outputs
 
 After adding the `out*` exports just so we can export the new stores we created, comes the interesting part of the `idList` and `tidList` exports which have an `import` field. 
-The convention here is that names that start with an underscore `_` are restricted and are meant only for system usage. With that said if we `import` a system bucket ( referring to an ObjectStore in indexedDB ) and follow the key convention we can write some information that can be used later in the Chrome extension when we want to do lookups on a per email or thread id, hence the names `_id.list` and `_tid.list` respectively.
+The convention here is that names that start with an underscore `_` are restricted and are meant only for system usage. With that said if we `import` a system bucket ( referring to an ObjectStore in indexedDB ) and follow the key convention we can write some information that can be used later in the Chrome extension when we want to do lookups on a per email or thread id, hence the names `_email.id` and `_email.tid` respectively.
 
 ```
 "outputs":{
   "exports":{
     "idList": {
-      "import": "_id.list"
+      "import": "_email.id"
     },
     "tidList": {
-      "import": "_tid.list"
+      "import": "_email.tid"
     },
     "outConvertedreceipts":{
       "key$schema": "string/string/string"
